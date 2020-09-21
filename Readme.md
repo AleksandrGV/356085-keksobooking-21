@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Александр Гончаренко](https://up.htmlacademy.ru/javascript/21/user/356085).
-* Наставник: `Неизвестно`.
+* Наставник: [Станислав Посиделов](https://htmlacademy.ru/profile/stanispos).
 
 ---
 
