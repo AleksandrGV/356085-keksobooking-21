@@ -1,3 +1,5 @@
+'use strict';
+
 // 1
 
 const offerTitle = ['Уютная квартира в центре', 'Просторная квартира', 'Квартира с красивым видом ио окна', 'Квартира с площадкой для детей', 'Теплая квартира', 'Квартира в тихом районе города', 'Квартира с развитой инфроструктурой', 'Квартира рядом с метро'];
@@ -11,13 +13,13 @@ const MOCK_BOOKING_DATA = 8;
 
 // Функция получение случайного целого числа в заданном интервале, включительно
 
-const getRandomNumbers = function(min, max) {
+const getRandomNumbers = function (min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+};
 
-const getMockBookingData = function() {
+const getMockBookingData = function () {
   return {
     'autor': {
       'avatar': 'img/avatars/user' + getRandomNumbers(1, 8) + 'png'
@@ -42,8 +44,6 @@ const getMockBookingData = function() {
   };
 };
 
-console.log(getMockBookingData(address));
-
 const array = Array(MOCK_BOOKING_DATA).fill(getMockBookingData());
 
 // 2
@@ -62,20 +62,20 @@ const imgAttribute = {
   alt: '{{Метка объявления}}'
 };
 
-for(let i = 0; i < offerTitle.length; i++) {
+for (let i = 0; i < offerTitle.length; i++) {
   let cloneElement = pinTemplate.cloneNode(true);
-    cloneElement.children[0].textContent = i;
-    // style не работают, что-то не правильно делаю?
-    cloneElement.setAttribute('style', 'left: {{offerAddress[(getRandomNumbers(0, 7))] + 50}}px; top: {{offerAddress[(getRandomNumbers(0, 7))] + 30}}px');
-    // cloneElement.imgAttribute;
-    console.log(cloneElement);
+  cloneElement.children[0].textContent = i;
+  // style не работают, что-то не правильно делаю?
+  cloneElement.setAttribute('style', 'left: {{offerAddress[(getRandomNumbers(0, 7))] + 50}}px; top: {{offerAddress[(getRandomNumbers(0, 7))] + 30}}px');
+  cloneElement.imgAttribute;
+  console.log(cloneElement);
 }
 
 // 4
 
-let newCloneElement = function(str){
+let newCloneElement = function (str) {
   var template = document.createElement('map__pins');
   template.innerHTML = str;
   return template.content;
-}
+};
 
