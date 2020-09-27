@@ -59,7 +59,7 @@ map.classList.remove('map--faded');
 let pinTemplate = document.querySelector('#pin').
 content.querySelector('.map__pin');
 
-let getCloneElement = function (elem, style, img) {
+let getCloneElement = function (img, elem, style) {
 
   img = {
     src: '{{author.avatar}}',
