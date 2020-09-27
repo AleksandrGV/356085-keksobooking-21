@@ -46,6 +46,8 @@ const getMockBookingData = function () {
 
 const array = Array(MOCK_BOOKING_DATA).fill(getMockBookingData());
 
+// console.log(array);
+
 // 2
 
 let map = document.querySelector('.map');
@@ -57,19 +59,25 @@ map.classList.remove('map--faded');
 let pinTemplate = document.querySelector('#pin').
 content.querySelector('.map__pin');
 
-const imgAttribute = {
-  src: '{{author.avatar}}',
-  alt: '{{Метка объявления}}'
+let getCloneElement = function (elem, style, img) {
+
+  img = {
+    src: '{{author.avatar}}',
+    alt: '{{Метка объявления}}'
+  };
+
+  for (let i = 0; i < array.length; i++) {
+    elem = pinTemplate.cloneNode(true);
+    elem.children[0].textContent = i;
+
+//style не работают, что-то не правильно делаю?
+
+    style = ('left: {{offerAddress[(getRandomNumbers(0, 7))] + 50}}px; top: {{offerAddress[(getRandomNumbers(0, 7))] + 30}}px');
+    console.log(elem);
+  }
 };
 
-for (let i = 0; i < offerTitle.length; i++) {
-  let cloneElement = pinTemplate.cloneNode(true);
-  cloneElement.children[0].textContent = i;
-  // style не работают, что-то не правильно делаю?
-  cloneElement.setAttribute('style', 'left: {{offerAddress[(getRandomNumbers(0, 7))] + 50}}px; top: {{offerAddress[(getRandomNumbers(0, 7))] + 30}}px');
-  cloneElement.imgAttribute;
-  console.log(cloneElement);
-}
+getCloneElement();
 
 // 4
 
@@ -79,3 +87,4 @@ let newCloneElement = function (str) {
   return template.content;
 };
 
+newCloneElement();
