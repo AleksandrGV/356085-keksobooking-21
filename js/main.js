@@ -11,6 +11,18 @@ const offerPhotos = [`http://o0.github.io/assets/images/tokyo/hotel1.jpg`, `http
 
 const MOCK_BOOKING_DATA = 8;
 
+const map = document.querySelector(`.map`);
+map.classList.remove(`map--faded`);
+
+const pinTemplate = document.querySelector(`#pin`).
+content.querySelector(`.map__pin`);
+
+const mapPins = document.querySelector(`.map__pins`);
+
+const templateElement = document.createDocumentFragment();
+
+const clonImg = pinTemplate.querySelector(`img`);
+
 // Функция получение случайного целого числа в заданном интервале, включительно
 
 const getRandomNumbers = function (min, max) {
@@ -22,7 +34,7 @@ const getRandomNumbers = function (min, max) {
 const getMockBookingData = function () {
   return {
     'autor': {
-      'avatar': `img/avatars/user ${getRandomNumbers(1, 8) / 10} png`
+      'avatar': `img/avatars/user ${getRandomNumbers(1, 8)} png`
     },
     'offer': {
       'title': offerTitle[(getRandomNumbers(0, 7))],
@@ -46,50 +58,15 @@ const getMockBookingData = function () {
 
 const mockPinsData = Array(MOCK_BOOKING_DATA).fill(getMockBookingData());
 
-// console.log(array);
 
-// 2
+mockPinsData.forEach(function (element) {
+  const clonElement = pinTemplate.cloneNode(true);
+  templateElement.textContent = element;
+  for (let i = 0; i < offerTitle.length; i++) {
+    clonElement.children[0].textContent = offerTitle[i];
+    mapPins.appendChild(clonElement);
+    clonElement.setAttribute(`style`, `left: ${offerAddress[getRandomNumbers(0, 7)]}px; top: ${offerAddress[getRandomNumbers(0, 7)]}px`);
+    clonImg.setAttribute(`src`, `img/avatars/user0${getRandomNumbers(1, 8)}.png`, `alt`, `${offerTitle[getRandomNumbers(0, 7)]}`);
+  }
+});
 
-let map = document.querySelector('.map');
-
-map.classList.remove('map--faded');
-
-// 3
-
-let pinTemplate = document.querySelector('#pin').
-content.querySelector('.map__pin');
-
-// let getCloneElement = function (img, elem, style) {
-
-
-for (let i = 0; i < offerTitle.length; i++) {
-  let clonElement = pinTemplate.cloneNode(true);
-  clonElement.children[0].textContent = i;
-  clonElement.setAttribute(`style`, `left: ${offerAddress[getRandomNumbers(0, 7)]}px; top: ${offerAddress[getRandomNumbers(0, 7)]}px`);
-  let clonImg = pinTemplate.querySelector('img');
-  console.log(clonImg);
-  //Не работает
-  clonImg.setAttribute(`src`, `img/avatars/user0${getRandomNumbers(1, 8)}.png`, `alt`, `${getRandomNumbers(0, 7)}`);
-console.log(clonElement);
-}
-// };
-
-// getCloneElement();
-
-// 4
-
-mockPinsData.foEach = function (element) {
-  let mapPins = document.createElement('map__pins');
-  mapPins.textContent = element;
-  let templateElement = document.createDocumentFragment();
-  templateElement.appendChild(mapPins);
-
-};
-
-// let newCloneElement = function (str) {
-//   var template = document.mockPinsData;
-//   template.appendChild = str;
-//   return template.content;
-// };
-
-// console.log(newCloneElement());
