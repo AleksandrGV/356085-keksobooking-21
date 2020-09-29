@@ -78,7 +78,7 @@ const getRenderingPins = function (pinsClone) {
   mapPins.appendChild(templateElement);
 };
 
-// Присваиваю сонстанте данные функции создания массива
+// Присваиваю константе значения функции создания и заполнения массива
 
 const mockPinsData = getCreatePins();
 
