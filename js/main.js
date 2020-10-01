@@ -42,8 +42,10 @@ const getMockBookingData = function () {
       'checkuot': offerCheckinCheckout[(getRandomNumbers(0, 2))],
       'features': Array(getRandomNumbers(1, 4)).fill(offerFeatures[getRandomNumbers(0, offerFeatures.length - 1)]),
       'description': `Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне.
-                      Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века.`,
-      'photos': Array(getRandomNumbers(1, 4)).fill(offerPhotos[getRandomNumbers(0, offerPhotos.length - 1)])
+                      Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века.
+                      Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн.`,
+      'photos': offerPhotos[(getRandomNumbers(0, 2))]
+      // Array(getRandomNumbers(0, 2)).fill(offerPhotos[getRandomNumbers(0, offerPhotos.length - 1)])
     },
     'location': {
       'x': markerX,
@@ -62,9 +64,6 @@ const getCreatePins = function () {
   return arrPins;
 };
 
-// const cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card`);
-
-// const mapFilterContainer = document.querySelector(`.map__filter-container`);
 // Функция отрисовки клонированных элементов
 
 const getRenderingPins = function (pinsClone) {
@@ -100,36 +99,41 @@ map.classList.remove(`map--faded`);
 const cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card`);
 
 const getCreateCard = function (cardNew) {
+
   const templateElementCard = document.createDocumentFragment();
   // const mapFilterContainer = document.querySelector(`.map__filter-container`);
-  // const parentLink = mapFilterContainer.parentNode;
-  cardNew.forEach(function (cards) {
-  const popupTitle = cardTemplate.querySelector(`.popup__title`);
-  const popupTextPrice = cardTemplate.querySelector(`.popup__text--price`);
-  const popupType = cardTemplate.querySelector(`.popup__type`);
-  const popupTextCapacity = cardTemplate.querySelector(`.popup__text--capacity`);
-  const popupTextTime = cardTemplate.querySelector(`.popup__text--time`);
-  const popupFeatures = cardTemplate.querySelector(`.popup__features`);
-  const popupDescription = cardTemplate.querySelector(`.popup__description`);
-  const popupPhotos = cardTemplate.querySelector(`.popup__photos`);
-  const popupAvatar = cardTemplate.querySelector(`.popup__avatar`);
+
+  // cardNew.forEach(function (cardNew[i]) {
+  for (let i = 0; i < cardNew.length; i++) {
+    const popupTitle = cardTemplate.querySelector(`.popup__title`);
+    const popupTextAddress = cardTemplate.querySelector(`.popup__text--address`);
+    const popupTextPrice = cardTemplate.querySelector(`.popup__text--price`);
+    const popupType = cardTemplate.querySelector(`.popup__type`);
+    const popupTextCapacity = cardTemplate.querySelector(`.popup__text--capacity`);
+    const popupTextTime = cardTemplate.querySelector(`.popup__text--time`);
+    const popupFeatures = cardTemplate.querySelector(`.popup__features`);
+    const popupDescription = cardTemplate.querySelector(`.popup__description`);
+    const popupPhotos = cardTemplate.querySelector(`.popup__photo`);
+    // const popupAvatar = cardTemplate.querySelector(`.popup__avatar`);
 
     const clonCard = cardTemplate.cloneNode(true);
-    // cardNew = cardTemplate.cloneNode(true);
-    popupTitle.textContent = `${cards.offer.title}`;
-    popupTextPrice.textContent = `${cards.offer.price}`;
-    popupType.textContent = `${cards.offer.type}`;
-    popupTextCapacity.textContent = `${cards.offer.capacity}`;
-    popupTextTime.textContent = `${cards.offer.time}`;
-    popupFeatures.textContent = `${cards.offer.features}`;
-    popupDescription.textContent = `${cards.offer.description}`;
-    popupPhotos.textContent = `${cards.offer.photos}`;
-    popupAvatar.textContent = `${cards.offer.avatar}`;
+
+    popupTitle.textContent = `${cardNew[i].offer.title}`;
+    popupTextAddress.textContent = `${cardNew[i].offer.address}`;
+    popupTextPrice.textContent = `${cardNew[i].offer.price}₽/ночь`;
+    popupType.textContent = `${cardNew[i].offer.type}`;
+    popupTextCapacity.textContent = (`${cardNew[i].offer.rooms} комнат(ы) для ${cardNew[i].offer.quests} гостей`);
+    popupTextTime.textContent = `Заезд после ${cardNew[i].offer.checkin}, выезд до ${cardNew[i].offer.checkuot}`;
+    popupFeatures.setAttribute(`li`, `${cardNew[i].offer.features}`);
+    popupDescription.textContent = `${cardNew[i].offer.description}`;
+    popupPhotos.setAttribute(`src`, `${cardNew[i].offer.photos}`);
     templateElementCard.appendChild(clonCard);
-    console.log(templateElementCard);
-  });
-  // map.appendChild(templateElementCard);
+    // popupAvatar.textContent = `${cardNew[i].autor.avatar}`;
+    // console.log(popupPhotos);
+  }
+  // });
   map.appendChild(templateElementCard);
+  // map.insertBefore(templateElementCard, mapFilterContainer);
 };
 
 getCreateCard(mockPinsData);
