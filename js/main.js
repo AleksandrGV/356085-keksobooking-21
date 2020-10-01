@@ -34,7 +34,7 @@ const getMockBookingData = function () {
     'offer': {
       'title': offerTitle[(getRandomNumbers(0, 7))],
       'address': `${markerX}, ${markerY}`,
-      'price': getRandomNumbers(500, 5000),
+      'price': getRandomNumbers(500, 15000),
       'type': offerType[(getRandomNumbers(0, 3))],
       'rooms': getRandomNumbers(0, 5),
       'quests': getRandomNumbers(0, 5),
@@ -62,7 +62,9 @@ const getCreatePins = function () {
   return arrPins;
 };
 
+// const cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card`);
 
+// const mapFilterContainer = document.querySelector(`.map__filter-container`);
 // Функция отрисовки клонированных элементов
 
 const getRenderingPins = function (pinsClone) {
@@ -71,11 +73,15 @@ const getRenderingPins = function (pinsClone) {
   pinsClone.forEach(function (pinNew) {
     const clonElement = pinTemplate.cloneNode(true);
     const clonImg = pinTemplate.querySelector(`img`);
+    // const popupTitle = cardTemplate.querySelector(`.popup__title`);
     clonElement.setAttribute(`style`, `left: ${pinNew.location.x}px; top: ${pinNew.location.y}px`);
     clonImg.setAttribute(`src`, `${pinNew.autor.avatar}`);
+    // popupTitle.textContent = `${pinNew.offer.title}`;
     templateElement.appendChild(clonElement);
+    // console.log(popupTitle);
   });
   mapPins.appendChild(templateElement);
+  // map.insertBefore(templateElement, mapFilterContainer);
 };
 
 // Присваиваю константе значения функции создания и заполнения массива
@@ -85,3 +91,47 @@ const mockPinsData = getCreatePins();
 getRenderingPins(mockPinsData);
 
 map.classList.remove(`map--faded`);
+
+// Функция отрисовки карточки module3-task2
+
+// На основе первого по порядку элемента из сгенерированного массива
+// и шаблона #card создайте DOM-элемент объявления (карточка объявления), заполните его данными из объекта:
+
+const cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card`);
+
+const getCreateCard = function (cardNew) {
+  const templateElementCard = document.createDocumentFragment();
+  // const mapFilterContainer = document.querySelector(`.map__filter-container`);
+  // const parentLink = mapFilterContainer.parentNode;
+  cardNew.forEach(function (cards) {
+  const popupTitle = cardTemplate.querySelector(`.popup__title`);
+  const popupTextPrice = cardTemplate.querySelector(`.popup__text--price`);
+  const popupType = cardTemplate.querySelector(`.popup__type`);
+  const popupTextCapacity = cardTemplate.querySelector(`.popup__text--capacity`);
+  const popupTextTime = cardTemplate.querySelector(`.popup__text--time`);
+  const popupFeatures = cardTemplate.querySelector(`.popup__features`);
+  const popupDescription = cardTemplate.querySelector(`.popup__description`);
+  const popupPhotos = cardTemplate.querySelector(`.popup__photos`);
+  const popupAvatar = cardTemplate.querySelector(`.popup__avatar`);
+
+    const clonCard = cardTemplate.cloneNode(true);
+    // cardNew = cardTemplate.cloneNode(true);
+    popupTitle.textContent = `${cards.offer.title}`;
+    popupTextPrice.textContent = `${cards.offer.price}`;
+    popupType.textContent = `${cards.offer.type}`;
+    popupTextCapacity.textContent = `${cards.offer.capacity}`;
+    popupTextTime.textContent = `${cards.offer.time}`;
+    popupFeatures.textContent = `${cards.offer.features}`;
+    popupDescription.textContent = `${cards.offer.description}`;
+    popupPhotos.textContent = `${cards.offer.photos}`;
+    popupAvatar.textContent = `${cards.offer.avatar}`;
+    templateElementCard.appendChild(clonCard);
+    console.log(templateElementCard);
+  });
+  // map.appendChild(templateElementCard);
+  map.appendChild(templateElementCard);
+};
+
+getCreateCard(mockPinsData);
+
+// console.log(getCreateCard(mockPinsData));
