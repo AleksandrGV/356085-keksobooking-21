@@ -141,5 +141,5 @@ const cardPhotos = function () {
   // console.log(cardTemplate);
 };
 
-console.log(cardPhotos());
+// console.log(cardPhotos());
 cardPhotos(); // вызываю функцию
