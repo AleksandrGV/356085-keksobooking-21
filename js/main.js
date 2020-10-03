@@ -72,15 +72,11 @@ const getRenderingPins = function (pinsClone) {
   pinsClone.forEach(function (pinNew) {
     const clonElement = pinTemplate.cloneNode(true);
     const clonImg = pinTemplate.querySelector(`img`);
-    // const popupTitle = cardTemplate.querySelector(`.popup__title`);
     clonElement.setAttribute(`style`, `left: ${pinNew.location.x}px; top: ${pinNew.location.y}px`);
     clonImg.setAttribute(`src`, `${pinNew.autor.avatar}`);
-    // popupTitle.textContent = `${pinNew.offer.title}`;
     templateElement.appendChild(clonElement);
-    // console.log(popupTitle);
   });
   mapPins.appendChild(templateElement);
-  // map.insertBefore(templateElement, mapFilterContainer);
 };
 
 // Присваиваю константе значения функции создания и заполнения массива
@@ -93,49 +89,57 @@ map.classList.remove(`map--faded`);
 
 // Функция отрисовки карточки module3-task2
 
-// На основе первого по порядку элемента из сгенерированного массива
-// и шаблона #card создайте DOM-элемент объявления (карточка объявления), заполните его данными из объекта:
-
 const cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card`);
 
-const getCreateCard = function (cardNew) {
-
+const createCard = function (cardNew) {
   const templateElementCard = document.createDocumentFragment();
-  // const mapFilterContainer = document.querySelector(`.map__filter-container`);
 
-  // cardNew.forEach(function (cardNew[i]) {
-  for (let i = 0; i < cardNew.length; i++) {
-    const popupTitle = cardTemplate.querySelector(`.popup__title`);
-    const popupTextAddress = cardTemplate.querySelector(`.popup__text--address`);
-    const popupTextPrice = cardTemplate.querySelector(`.popup__text--price`);
-    const popupType = cardTemplate.querySelector(`.popup__type`);
-    const popupTextCapacity = cardTemplate.querySelector(`.popup__text--capacity`);
-    const popupTextTime = cardTemplate.querySelector(`.popup__text--time`);
-    const popupFeatures = cardTemplate.querySelector(`.popup__features`);
-    const popupDescription = cardTemplate.querySelector(`.popup__description`);
-    const popupPhotos = cardTemplate.querySelector(`.popup__photo`);
-    // const popupAvatar = cardTemplate.querySelector(`.popup__avatar`);
+  const mapFilterContainer = document.querySelector(`.map__filter-container`);
+  const clonCardTemplate = cardTemplate.cloneNode(true);
 
-    const clonCard = cardTemplate.cloneNode(true);
+  // Короткая запись
 
-    popupTitle.textContent = `${cardNew[i].offer.title}`;
-    popupTextAddress.textContent = `${cardNew[i].offer.address}`;
-    popupTextPrice.textContent = `${cardNew[i].offer.price}₽/ночь`;
-    popupType.textContent = `${cardNew[i].offer.type}`;
-    popupTextCapacity.textContent = (`${cardNew[i].offer.rooms} комнат(ы) для ${cardNew[i].offer.quests} гостей`);
-    popupTextTime.textContent = `Заезд после ${cardNew[i].offer.checkin}, выезд до ${cardNew[i].offer.checkuot}`;
-    popupFeatures.setAttribute(`li`, `${cardNew[i].offer.features}`);
-    popupDescription.textContent = `${cardNew[i].offer.description}`;
-    popupPhotos.setAttribute(`src`, `${cardNew[i].offer.photos}`);
-    templateElementCard.appendChild(clonCard);
-    // popupAvatar.textContent = `${cardNew[i].autor.avatar}`;
-    // console.log(popupPhotos);
-  }
-  // });
-  map.appendChild(templateElementCard);
-  // map.insertBefore(templateElementCard, mapFilterContainer);
+  cardTemplate.querySelector(`.popup__title`).textContent = cardNew.offer.title;
+  cardTemplate.querySelector(`.popup__text--address`).textContent = `${cardNew.offer.address}`;
+  cardTemplate.querySelector(`.popup__text--price`).textContent = `${cardNew.offer.price}₽/ночь`;
+  cardTemplate.querySelector(`.popup__type`).textContent = `${cardNew.offer.type}`;
+  cardTemplate.querySelector(`.popup__text--capacity`).textContent = (`${cardNew.offer.rooms} комнат(ы) для ${cardNew.offer.quests} гостей`);
+  cardTemplate.querySelector(`.popup__text--time`).textContent = `Заезд после ${cardNew.offer.checkin}, выезд до ${cardNew.offer.checkuot}`;
+  cardTemplate.querySelector(`.popup__features`).setAttribute(`li`, `${cardNew.offer.features}`);
+  cardTemplate.querySelector(`.popup__description`).textContent = `${cardNew.offer.description}`;
+  // cardTemplate.querySelector(`.popup__photos`).setAttribute(`src`, `${cardNew.offer.photos}`);
+
+  templateElementCard.appendChild(clonCardTemplate);
+
+  map.insertBefore(templateElementCard, mapFilterContainer);
 };
 
-getCreateCard(mockPinsData);
+createCard(mockPinsData[0]);
 
-// console.log(getCreateCard(mockPinsData));
+
+// Функция клонирования фото
+const popupPhotos = cardTemplate.querySelector(`.popup__photos`); // нахожу класс popup__photos
+const popupPhoto = cardTemplate.querySelector(`.popup__photo`); // класс popup__photo
+
+const cardPhotos = function () {
+  const templateElementCard = document.createDocumentFragment();
+  const photosCard = [];
+  // photosCard.forEach(function (photoCard) {
+  for (let i = 0; i < photosCard.length; i++) {
+    const clonePopupPhotos = popupPhoto.cloneNode(); // клонирую класс popup_photo
+    clonePopupPhotos.children[0].textContent = photosCard[i];
+    clonePopupPhotos.setAttribute(`src`, `${photosCard[i].offer.photos}`); // вствляю в класс popup__photo src и путь к фото
+    // popupPhotos.setAttribute(`img`, clonePopupPhotos);
+    // console.log(clonePopupPhotos);
+    // popupPhotos.appendChild(clonPopupPhotos);
+    // console.log(popupPhotos);
+    popupPhotos.appendChild(clonePopupPhotos); // добавляю в обертку с классом popup__photos картинку с адресом
+  }
+  // });
+  return templateElementCard.appendChild(popupPhotos);
+  // return popupPhotos;
+  // console.log(cardTemplate);
+};
+
+console.log(cardPhotos());
+cardPhotos(); // вызываю функцию
