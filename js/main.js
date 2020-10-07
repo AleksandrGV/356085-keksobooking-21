@@ -21,7 +21,7 @@ const mapPins = document.querySelector(`.map__pins`);
 // Template только для образца их нужно клонировать и взаимодействовать только с клонами
 
 const pinTemplate = document.querySelector(`#pin`).content.querySelector(`.map__pin`);
-const cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card`);
+// const cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card`);
 
 // Функция получение случайного целого числа в заданном интервале, включительно
 
