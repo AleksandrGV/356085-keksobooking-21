@@ -101,55 +101,142 @@ const renderingPins = function (pinsClone) {
 
 const mockPinsData = getCreatePins();
 
-renderingPins(mockPinsData);
+// renderingPins(mockPinsData);
 
-map.classList.remove(`map--faded`);
+// map.classList.remove(`map--faded`);
 
-// Функция отрисовки и клонирования фото
+// // Функция отрисовки и клонирования фото
 
-const getCreateHomePhoto = function (containerPhotoCard, photosCard) {
-  const fragmentPhotosCard = document.createDocumentFragment();
+// const getCreateHomePhoto = function (containerPhotoCard, photosCard) {
+//   const fragmentPhotosCard = document.createDocumentFragment();
 
-  photosCard.forEach(function (photoCard) {
-    const templatePopupPhoto = containerPhotoCard.querySelector(`.popup__photo`).cloneNode(true);
-    templatePopupPhoto.setAttribute(`src`, photoCard);
-    fragmentPhotosCard.appendChild(templatePopupPhoto);
+//   photosCard.forEach(function (photoCard) {
+//     const templatePopupPhoto = containerPhotoCard.querySelector(`.popup__photo`).cloneNode(true);
+//     templatePopupPhoto.setAttribute(`src`, photoCard);
+//     fragmentPhotosCard.appendChild(templatePopupPhoto);
+//   });
+//   return fragmentPhotosCard;
+// };
+
+// // Функция отрисовки карточки объявления
+
+// const createCard = function (cardNew) {
+
+//   const templateElementCard = document.createDocumentFragment();
+
+//   const mapFilterContainer = document.querySelector(`.map__filters-container`);
+//   const clonCardTemplate = cardTemplate.cloneNode(true);
+
+//   // Короткая запись
+
+//   clonCardTemplate.querySelector(`.popup__avatar`).setAttribute(`src`, `${cardNew.autor.avatar}`);
+//   clonCardTemplate.querySelector(`.popup__title`).textContent = cardNew.offer.title;
+//   clonCardTemplate.querySelector(`.popup__text--address`).textContent = `${cardNew.offer.address}`;
+//   clonCardTemplate.querySelector(`.popup__text--price`).textContent = `${cardNew.offer.price}₽/ночь`;
+//   clonCardTemplate.querySelector(`.popup__type`).textContent = `${cardNew.offer.type}`;
+//   clonCardTemplate.querySelector(`.popup__text--capacity`).textContent = (`${cardNew.offer.rooms} комнат(ы) для ${cardNew.offer.quests} гостей`);
+//   clonCardTemplate.querySelector(`.popup__text--time`).textContent = `Заезд после ${cardNew.offer.checkin}, выезд до ${cardNew.offer.checkuot}`;
+//   clonCardTemplate.querySelector(`.popup__features`).setAttribute(`li`, `${cardNew.offer.features}`);
+//   clonCardTemplate.querySelector(`.popup__description`).textContent = `${cardNew.offer.description}`;
+
+//   const containerCardPhotos = clonCardTemplate.querySelector(`.popup__photos`);
+
+//   const homePhotoCard = getCreateHomePhoto(containerCardPhotos, cardNew.offer.photos);
+
+//   containerCardPhotos.replaceChild(homePhotoCard, containerCardPhotos.querySelector(`.popup__photo`));
+
+//   templateElementCard.appendChild(clonCardTemplate);
+
+//   // Вставляю карточку перед mapFilterContaine
+
+//   map.insertBefore(templateElementCard, mapFilterContainer);
+// };
+
+// createCard(mockPinsData[0]);
+
+// Функция активации похожих объявлений
+
+const activatesRenderingSimilarAds = function () {
+  renderingPins(mockPinsData);
+};
+
+activatesRenderingSimilarAds();
+
+// Функция блокировки полей
+
+const adForm = document.querySelector(`.ad-form`);
+const adFormFieldset = document.querySelectorAll(`fieldset`);
+const formMapFilters = document.querySelectorAll(`.map__filter`);
+
+const blocksForm = function () {
+  adFormFieldset.forEach(function (formFieldset) {
+    formFieldset.setAttribute(`disabled`, `disabled`);
   });
-  return fragmentPhotosCard;
+  formMapFilters.forEach(function (mapFilters) {
+    mapFilters.setAttribute(`disabled`, `disabled`);
+  });
 };
 
-// Функция отрисовки карточки объявления
+blocksForm();
 
-const createCard = function (cardNew) {
+// Функция разблокировки полей
 
-  const templateElementCard = document.createDocumentFragment();
+const WRITE_DOWN_ADDRESS = document.querySelector(`#address`);
 
-  const mapFilterContainer = document.querySelector(`.map__filters-container`);
-  const clonCardTemplate = cardTemplate.cloneNode(true);
-
-  // Короткая запись
-
-  clonCardTemplate.querySelector(`.popup__avatar`).setAttribute(`src`, `${cardNew.autor.avatar}`);
-  clonCardTemplate.querySelector(`.popup__title`).textContent = cardNew.offer.title;
-  clonCardTemplate.querySelector(`.popup__text--address`).textContent = `${cardNew.offer.address}`;
-  clonCardTemplate.querySelector(`.popup__text--price`).textContent = `${cardNew.offer.price}₽/ночь`;
-  clonCardTemplate.querySelector(`.popup__type`).textContent = `${cardNew.offer.type}`;
-  clonCardTemplate.querySelector(`.popup__text--capacity`).textContent = (`${cardNew.offer.rooms} комнат(ы) для ${cardNew.offer.quests} гостей`);
-  clonCardTemplate.querySelector(`.popup__text--time`).textContent = `Заезд после ${cardNew.offer.checkin}, выезд до ${cardNew.offer.checkuot}`;
-  clonCardTemplate.querySelector(`.popup__features`).setAttribute(`li`, `${cardNew.offer.features}`);
-  clonCardTemplate.querySelector(`.popup__description`).textContent = `${cardNew.offer.description}`;
-
-  const containerCardPhotos = clonCardTemplate.querySelector(`.popup__photos`);
-
-  const homePhotoCard = getCreateHomePhoto(containerCardPhotos, cardNew.offer.photos);
-
-  containerCardPhotos.replaceChild(homePhotoCard, containerCardPhotos.querySelector(`.popup__photo`));
-
-  templateElementCard.appendChild(clonCardTemplate);
-
-  // Вставляю карточку перед mapFilterContaine
-
-  map.insertBefore(templateElementCard, mapFilterContainer);
+const unlocksFormFields = function () {
+  adFormFieldset.forEach(function (itemFieldset) {
+    itemFieldset.disabled = false;
+  });
+  formMapFilters.forEach(function (itemFilters) {
+    itemFilters.disabled = false;
+  });
+  map.classList.remove(`map--faded`);
+  adForm.classList.remove(`ad-form--disabled`);
 };
 
-createCard(mockPinsData[0]);
+const mapPinMain = mapPins.querySelector(`.map__pin--main`);
+
+mapPinMain.addEventListener(`mousedown`, function (evt) {
+  unlocksFormFields();
+  // Не срабатывает фокус для адреса
+  WRITE_DOWN_ADDRESS.focus(evt);
+});
+
+// Перевод страницы в активный режим с клавиатуры
+
+mapPinMain.addEventListener(`keydown`, function (evt) {
+  if (evt.key === `Enter`) {
+    unlocksFormFields();
+  }
+});
+
+// Заполнение поля с адресом
+
+WRITE_DOWN_ADDRESS.value = (`${mapPinMain.style.left}, ${mapPinMain.style.top}`);
+
+// Валидация полей формы
+
+// Функция с условиями для проверки соответствия количества гостей количеству комнат.
+
+const housingRooms = document.querySelector(`#housing-rooms`);
+const housingGuests = document.querySelector(`#housing-guests`);
+
+const checksAdTitleConditions = function (housingRoomsGuests) {
+  if (housingRooms.validity.value > housingGuests.validity.value) {
+    housingRoomsGuests.setCustomValidity(`Комнат и спальных мест больше чем гостей`);
+  } else if (housingRooms.validity.value < housingGuests.validity.value) {
+    housingRoomsGuests.setCustomValidity(`Комнат и спальных мест меньше чем гостей`);
+  } else if (housingRooms.validity.valueMissin !== housingGuests.validity.valueMissin) {
+    housingRoomsGuests.setCustomValidity(`Укажите количество комнат и гостей`);
+  } else {
+    housingRoomsGuests.setCustomValidity(``);
+  }
+};
+
+// меняю валидации с помощью обработчика событий
+
+housingRooms.addEventListener(`invalid`, function () {
+  checksAdTitleConditions();
+});
+
+
