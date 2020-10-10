@@ -17,6 +17,13 @@ const offerPhotos = [`http://o0.github.io/assets/images/tokyo/hotel1.jpg`,
 
 const map = document.querySelector(`.map`);
 const mapPins = document.querySelector(`.map__pins`);
+const adForm = document.querySelector(`.ad-form`);
+const adFormFieldset = document.querySelectorAll(`fieldset`);
+const formMapFilters = document.querySelectorAll(`.map__filter`);
+const writeDownAddress = document.querySelector(`#address`);
+const mapPinMain = mapPins.querySelector(`.map__pin--main`);
+const roomNumber = document.querySelector(`#room_number`);
+const capacity = document.querySelector(`#capacity`);
 
 // Template только для образца их нужно клонировать и взаимодействовать только с клонами
 
@@ -164,9 +171,6 @@ activatesRenderingSimilarAds();
 
 // Функция блокировки полей
 
-const adForm = document.querySelector(`.ad-form`);
-const adFormFieldset = document.querySelectorAll(`fieldset`);
-const formMapFilters = document.querySelectorAll(`.map__filter`);
 
 const blocksForm = function () {
   adFormFieldset.forEach(function (formFieldset) {
@@ -181,8 +185,6 @@ blocksForm();
 
 // Функция разблокировки полей
 
-const WRITE_DOWN_ADDRESS = document.querySelector(`#address`);
-
 const unlocksFormFields = function () {
   adFormFieldset.forEach(function (itemFieldset) {
     itemFieldset.disabled = false;
@@ -194,12 +196,13 @@ const unlocksFormFields = function () {
   adForm.classList.remove(`ad-form--disabled`);
 };
 
-const mapPinMain = mapPins.querySelector(`.map__pin--main`);
+// Перевод страницы в активное состояние левой кнопкой мыши
 
 mapPinMain.addEventListener(`mousedown`, function (evt) {
-  unlocksFormFields();
-  // Не срабатывает фокус для адреса
-  WRITE_DOWN_ADDRESS.focus(evt);
+  if (evt.which === 1) {
+    unlocksFormFields();
+    writeDownAddress.value = (`${evt.x}, ${evt.y}`);
+  }
 });
 
 // Перевод страницы в активный режим с клавиатуры
@@ -207,36 +210,32 @@ mapPinMain.addEventListener(`mousedown`, function (evt) {
 mapPinMain.addEventListener(`keydown`, function (evt) {
   if (evt.key === `Enter`) {
     unlocksFormFields();
+    writeDownAddress.value = (`${mapPinMain.offsetLeft}, ${mapPinMain.offsetTop}`);
   }
 });
 
 // Заполнение поля с адресом
 
-WRITE_DOWN_ADDRESS.value = (`${mapPinMain.style.left}, ${mapPinMain.style.top}`);
+writeDownAddress.value = (`${mapPinMain.offsetLeft}, ${mapPinMain.offsetTop}`);
 
 // Валидация полей формы
 
 // Функция с условиями для проверки соответствия количества гостей количеству комнат.
 
-const housingRooms = document.querySelector(`#housing-rooms`);
-const housingGuests = document.querySelector(`#housing-guests`);
-
-const checksAdTitleConditions = function (housingRoomsGuests) {
-  if (housingRooms.validity.value > housingGuests.validity.value) {
-    housingRoomsGuests.setCustomValidity(`Комнат и спальных мест больше чем гостей`);
-  } else if (housingRooms.validity.value < housingGuests.validity.value) {
-    housingRoomsGuests.setCustomValidity(`Комнат и спальных мест меньше чем гостей`);
-  } else if (housingRooms.validity.valueMissin !== housingGuests.validity.valueMissin) {
-    housingRoomsGuests.setCustomValidity(`Укажите количество комнат и гостей`);
+const checksAdTitleConditions = function () {
+  if (roomNumber.validity.value > capacity.validity.value) {
+    roomNumber.setCustomValidity(`Комнат и спальных мест больше чем гостей`);
+  } else if (roomNumber.validity.value < capacity.validity.value) {
+    roomNumber.setCustomValidity(`Комнат и спальных мест меньше чем гостей`);
+  } else if (roomNumber.validity.valueMissin !== capacity.validity.valueMissin) {
+    roomNumber.setCustomValidity(`Укажите одинаковое количество комнат и гостей`);
   } else {
-    housingRoomsGuests.setCustomValidity(``);
+    roomNumber.setCustomValidity(``);
   }
 };
 
-// меняю валидации с помощью обработчика событий
+// Jбработчик событий для проверки валидации комнат и гостей
 
-housingRooms.addEventListener(`invalid`, function () {
+roomNumber.addEventListener(`invalid`, function () {
   checksAdTitleConditions();
 });
-
-
