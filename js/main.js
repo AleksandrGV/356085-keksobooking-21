@@ -20,10 +20,11 @@ const mapPins = document.querySelector(`.map__pins`);
 const adForm = document.querySelector(`.ad-form`);
 const adFormFieldset = document.querySelectorAll(`fieldset`);
 const formMapFilters = document.querySelectorAll(`.map__filter`);
-const writeDownAddress = document.querySelector(`#address`);
+const inputAddress = document.querySelector(`#address`);
 const mapPinMain = mapPins.querySelector(`.map__pin--main`);
 const roomNumber = document.querySelector(`#room_number`);
 const capacity = document.querySelector(`#capacity`);
+const adFormSubmit = document.querySelector(`.ad-form__submit`);
 
 // Template только для образца их нужно клонировать и взаимодействовать только с клонами
 
@@ -196,12 +197,17 @@ const unlocksFormFields = function () {
   adForm.classList.remove(`ad-form--disabled`);
 };
 
+const writeDownAddress = function (addressX, addressY) {
+  inputAddress.value = (`${addressX}, ${addressY}`);
+  // console.log(inputAddress.value);
+};
+
 // Перевод страницы в активное состояние левой кнопкой мыши
 
 mapPinMain.addEventListener(`mousedown`, function (evt) {
-  if (evt.which === 1) {
+  if (evt.button === 0) {
     unlocksFormFields();
-    writeDownAddress.value = (`${evt.x}, ${evt.y}`);
+    writeDownAddress(`${evt.x}, ${evt.y}`);
   }
 });
 
@@ -210,13 +216,9 @@ mapPinMain.addEventListener(`mousedown`, function (evt) {
 mapPinMain.addEventListener(`keydown`, function (evt) {
   if (evt.key === `Enter`) {
     unlocksFormFields();
-    writeDownAddress.value = (`${mapPinMain.offsetLeft}, ${mapPinMain.offsetTop}`);
+    writeDownAddress(`${mapPinMain.offsetLeft}, ${mapPinMain.offsetTop}`);
   }
 });
-
-// Заполнение поля с адресом
-
-writeDownAddress.value = (`${mapPinMain.offsetLeft}, ${mapPinMain.offsetTop}`);
 
 // Валидация полей формы
 
@@ -234,11 +236,11 @@ const linkSelect = function () {
 linkSelect();
 
 const checksAdTitleConditions = function () {
-  if (roomNumber.validity.value > capacity.validity.value) {
+  if (roomNumber.value > capacity.value) {
     roomNumber.setCustomValidity(`Комнат и спальных мест больше чем гостей`);
-  } else if (roomNumber.validity.value < capacity.validity.value) {
+  } else if (roomNumber.value < capacity.value) {
     roomNumber.setCustomValidity(`Комнат и спальных мест меньше чем гостей`);
-  } else if (roomNumber.validity.valueMissin !== capacity.validity.valueMissin) {
+  } else if (roomNumber.valueMissin !== capacity.valueMissin) {
     roomNumber.setCustomValidity(`Укажите одинаковое количество комнат и гостей`);
   } else {
     roomNumber.setCustomValidity(``);
@@ -248,7 +250,6 @@ const checksAdTitleConditions = function () {
 
 // Обработчик событий для проверки валидации комнат и гостей
 
-// roomNumber.addEventListener(`invalid`, function () {
-//   checksAdTitleConditions();
-// });
-// console.log(checksAdTitleConditions());
+adFormSubmit.addEventListener(`click`, function () {
+  checksAdTitleConditions();
+});
