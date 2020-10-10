@@ -220,7 +220,18 @@ writeDownAddress.value = (`${mapPinMain.offsetLeft}, ${mapPinMain.offsetTop}`);
 
 // Валидация полей формы
 
-// Функция с условиями для проверки соответствия количества гостей количеству комнат.
+// Функция связи селектов.
+
+const linkSelect = function () {
+  roomNumber.onchange = function () {
+    capacity.selectedIndex = this.selectedIndex;
+  };
+  capacity.onchange = function () {
+    roomNumber.selectedIndex = this.selectedIndex;
+  };
+};
+
+linkSelect();
 
 const checksAdTitleConditions = function () {
   if (roomNumber.validity.value > capacity.validity.value) {
@@ -232,10 +243,12 @@ const checksAdTitleConditions = function () {
   } else {
     roomNumber.setCustomValidity(``);
   }
+  roomNumber.reportVadility();
 };
 
-// Jбработчик событий для проверки валидации комнат и гостей
+// Обработчик событий для проверки валидации комнат и гостей
 
-roomNumber.addEventListener(`invalid`, function () {
-  checksAdTitleConditions();
-});
+// roomNumber.addEventListener(`invalid`, function () {
+//   checksAdTitleConditions();
+// });
+// console.log(checksAdTitleConditions());
