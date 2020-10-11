@@ -17,6 +17,14 @@ const offerPhotos = [`http://o0.github.io/assets/images/tokyo/hotel1.jpg`,
 
 const map = document.querySelector(`.map`);
 const mapPins = document.querySelector(`.map__pins`);
+const adForm = document.querySelector(`.ad-form`);
+const adFormFieldset = document.querySelectorAll(`fieldset`);
+const formMapFilters = document.querySelectorAll(`.map__filter`);
+const inputAddress = document.querySelector(`#address`);
+const mapPinMain = mapPins.querySelector(`.map__pin--main`);
+const roomNumber = document.querySelector(`#room_number`);
+const capacity = document.querySelector(`#capacity`);
+const adFormSubmit = document.querySelector(`.ad-form__submit`);
 
 // Template только для образца их нужно клонировать и взаимодействовать только с клонами
 
@@ -103,8 +111,6 @@ const mockPinsData = getCreatePins();
 
 renderingPins(mockPinsData);
 
-map.classList.remove(`map--faded`);
-
 // Функция отрисовки и клонирования фото
 
 const getCreateHomePhoto = function (containerPhotoCard, photosCard) {
@@ -153,3 +159,80 @@ const createCard = function (cardNew) {
 };
 
 createCard(mockPinsData[0]);
+
+// Функция активации похожих объявлений
+
+const activatesRenderingSimilarAds = function () {
+  renderingPins(mockPinsData);
+};
+
+activatesRenderingSimilarAds();
+
+// Функция блокировки полей
+
+
+const blocksForm = function () {
+  adFormFieldset.forEach(function (formFieldset) {
+    formFieldset.setAttribute(`disabled`, `disabled`);
+  });
+  formMapFilters.forEach(function (mapFilters) {
+    mapFilters.setAttribute(`disabled`, `disabled`);
+  });
+};
+
+blocksForm();
+
+// Функция разблокировки полей
+
+const unlocksFormFields = function () {
+  adFormFieldset.forEach(function (itemFieldset) {
+    itemFieldset.disabled = false;
+  });
+  formMapFilters.forEach(function (itemFilters) {
+    itemFilters.disabled = false;
+  });
+  map.classList.remove(`map--faded`);
+  adForm.classList.remove(`ad-form--disabled`);
+};
+
+const writeDownAddress = function (addressX, addressY) {
+  inputAddress.value = (`${addressX}, ${addressY}`);
+};
+
+// Перевод страницы в активное состояние левой кнопкой мыши
+
+mapPinMain.addEventListener(`mousedown`, function (evt) {
+  if (evt.button === 0) {
+    unlocksFormFields();
+    writeDownAddress(evt.x, evt.y);
+  }
+});
+
+// Перевод страницы в активный режим с клавиатуры
+
+mapPinMain.addEventListener(`keydown`, function (evt) {
+  if (evt.key === `Enter`) {
+    unlocksFormFields();
+    writeDownAddress(`${mapPinMain.offsetLeft}, ${mapPinMain.offsetTop}`);
+  }
+});
+
+// Валидация полей формы
+
+const checksAdTitleConditions = function () {
+  if (roomNumber.value > capacity.value) {
+    roomNumber.setCustomValidity(`Комнат и спальных мест больше чем гостей`);
+  } else if (roomNumber.value < capacity.value) {
+    roomNumber.setCustomValidity(`Комнат и спальных мест меньше чем гостей`);
+  } else if (roomNumber.valueMissin !== capacity.valueMissin) {
+    roomNumber.setCustomValidity(`Укажите одинаковое количество комнат и гостей`);
+  } else {
+    roomNumber.setCustomValidity(``);
+  }
+};
+
+// Обработчик событий для проверки валидации комнат и гостей
+
+adFormSubmit.addEventListener(`click`, function () {
+  checksAdTitleConditions();
+});
