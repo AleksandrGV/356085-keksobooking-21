@@ -158,7 +158,6 @@ const createCard = function (cardNew) {
   map.insertBefore(templateElementCard, mapFilterContainer);
 };
 
-createCard(mockPinsData[0]);
 
 // Функция активации похожих объявлений
 
@@ -193,6 +192,7 @@ const unlocksFormFields = function () {
   });
   map.classList.remove(`map--faded`);
   adForm.classList.remove(`ad-form--disabled`);
+  createCard(mockPinsData[0]);
 };
 
 const writeDownAddress = function (addressX, addressY) {
@@ -235,4 +235,35 @@ const checksAdTitleConditions = function () {
 
 adFormSubmit.addEventListener(`click`, function () {
   checksAdTitleConditions();
+});
+
+// Открытие карточки объявления
+
+
+const mapPin = mapPins.querySelectorAll(`.map__pin`);
+const findIconsMap = function () {
+  for (let i = 0; i < mapPin.length; i++) {
+    if (mapPin[i] === true && mapPinMain === false) {
+      createCard(mockPinsData[0]);
+    }
+    // const mapsPin = [i];
+
+    // console.log(mapsPin);
+  }
+};
+
+mapPins.addEventListener(`click`, function () {
+  findIconsMap();
+});
+
+
+// Закрытие карточки объявления
+
+const popupClose = cardTemplate.querySelector(`.popup__close`);
+
+popupClose.addEventListener(`click`, function (evt) {
+  evt.preventDefault();
+  // Не получаетсяя добавить класс
+  cardTemplate.classList.add(`hidden`);
+  // console.log(cardTemplate);
 });
