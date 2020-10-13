@@ -90,7 +90,7 @@ const getMockBookingData = function () {
   };
 };
 
-// Функция отрисовки клонированных элементов
+// Функция отрисовки клонированных элементов Pin
 
 const renderingPins = function (pinsClone) {
   const templateElement = document.createDocumentFragment();
@@ -109,7 +109,7 @@ const renderingPins = function (pinsClone) {
 
 const mockPinsData = getCreatePins();
 
-renderingPins(mockPinsData);
+// renderingPins(mockPinsData);
 
 // Функция отрисовки и клонирования фото
 
@@ -122,6 +122,12 @@ const getCreateHomePhoto = function (containerPhotoCard, photosCard) {
     fragmentPhotosCard.appendChild(templatePopupPhoto);
   });
   return fragmentPhotosCard;
+};
+
+// Функция активации похожих объявлений
+
+const activatesRenderingSimilarAds = function () {
+  renderingPins(mockPinsData);
 };
 
 // Функция отрисовки карточки объявления
@@ -158,15 +164,6 @@ const createCard = function (cardNew) {
   map.insertBefore(templateElementCard, mapFilterContainer);
 };
 
-
-// Функция активации похожих объявлений
-
-const activatesRenderingSimilarAds = function () {
-  renderingPins(mockPinsData);
-};
-
-activatesRenderingSimilarAds();
-
 // Функция блокировки полей
 
 
@@ -192,7 +189,7 @@ const unlocksFormFields = function () {
   });
   map.classList.remove(`map--faded`);
   adForm.classList.remove(`ad-form--disabled`);
-  createCard(mockPinsData[0]);
+  // createCard(mockPinsData[0]);
 };
 
 const writeDownAddress = function (addressX, addressY) {
@@ -205,6 +202,7 @@ mapPinMain.addEventListener(`mousedown`, function (evt) {
   if (evt.button === 0) {
     unlocksFormFields();
     writeDownAddress(evt.x, evt.y);
+    activatesRenderingSimilarAds();
   }
 });
 
@@ -239,23 +237,22 @@ adFormSubmit.addEventListener(`click`, function () {
 
 // Открытие карточки объявления
 
-
 const mapPin = mapPins.querySelectorAll(`.map__pin`);
+
 const findIconsMap = function () {
-  for (let i = 0; i < mapPin.length; i++) {
-    if (mapPin[i] === true && mapPinMain === false) {
+  // for (let i = 1; i < mapPin.length; i++) {
+    if (mapPinMain !== mapPin) {
       createCard(mockPinsData[0]);
-    }
+      }
     // const mapsPin = [i];
 
-    // console.log(mapsPin);
-  }
+  // }
+  console.log(mapPin);
 };
 
 mapPins.addEventListener(`click`, function () {
   findIconsMap();
 });
-
 
 // Закрытие карточки объявления
 
