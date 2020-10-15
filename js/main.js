@@ -65,7 +65,7 @@ const getMockBookingData = function () {
   const markerX = getRandomNumbers(0, 1400);
   const markerY = getRandomNumbers(130, 630);
   return {
-    'autor': {
+    'author': {
       'avatar': `img/avatars/user0${getRandomNumbers(1, 8)}.png`
     },
     'offer': {
@@ -95,15 +95,64 @@ const getMockBookingData = function () {
 const renderingPins = function (pinsClone) {
   const templateElement = document.createDocumentFragment();
 
-  pinsClone.forEach(function (pinNew) {
+  pinsClone.forEach(function (pinNew, index) {
     const clonElement = pinTemplate.cloneNode(true);
     const clonImg = pinTemplate.querySelector(`img`);
     clonElement.setAttribute(`style`, `left: ${pinNew.location.x}px; top: ${pinNew.location.y}px`);
-    clonImg.setAttribute(`src`, `${pinNew.autor.avatar}`);
+    clonElement.dataset.indexPin = index;
+    clonImg.setAttribute(`src`, `${pinNew.author.avatar}`);
     templateElement.appendChild(clonElement);
   });
   mapPins.appendChild(templateElement);
 };
+
+// Открытие карточки через делегирование (всплытие)
+
+const onOpenCard = function (openCard) {
+  const popup = map.querySelector(`.popup`);
+  const mapPin = openCard.target.closest(`.map__pin`);
+  popupClose(popup);
+  if (mapPin) {
+    const indexPinClone = mapPin.dataset.indexPin;
+    if (indexPinClone) {
+      createCard(mockPinsData[indexPinClone]);
+    }
+  }
+};
+
+mapPins.addEventListener(`click`, function (evt) {
+  onOpenCard(evt);
+});
+
+// Временами не стабильно работает
+
+mapPins.addEventListener(`keydown`, function (evt) {
+  if (evt.key === `Enter`) {
+    onOpenCard(evt);
+  }
+});
+
+// Закрытие карточки объявления
+
+const popupClose = function (popup) {
+  if (popup) {
+    popup.remove();
+  }
+};
+
+document.addEventListener(`keydown`, function (evt) {
+  const popup = map.querySelector(`.popup`);
+  if (evt.key === `Escape`) {
+    popupClose(popup);
+  }
+});
+
+document.addEventListener(`mousedown`, function (evt) {
+  const popup = map.querySelector(`.popup`);
+  if (evt.button === 0) {
+    popupClose(popup);
+  }
+});
 
 // Присваиваю константе значения функции создания и заполнения массива
 
@@ -141,7 +190,7 @@ const createCard = function (cardNew) {
 
   // Короткая запись
 
-  clonCardTemplate.querySelector(`.popup__avatar`).setAttribute(`src`, `${cardNew.autor.avatar}`);
+  clonCardTemplate.querySelector(`.popup__avatar`).setAttribute(`src`, `${cardNew.author.avatar}`);
   clonCardTemplate.querySelector(`.popup__title`).textContent = cardNew.offer.title;
   clonCardTemplate.querySelector(`.popup__text--address`).textContent = `${cardNew.offer.address}`;
   clonCardTemplate.querySelector(`.popup__text--price`).textContent = `${cardNew.offer.price}₽/ночь`;
@@ -164,8 +213,13 @@ const createCard = function (cardNew) {
   map.insertBefore(templateElementCard, mapFilterContainer);
 };
 
-// Функция блокировки полей
+const writeDownAddress = function (addressX, addressY) {
+  inputAddress.value = (`${addressX}, ${addressY}`);
+};
 
+writeDownAddress(mapPinMain.offsetLeft, mapPinMain.offsetTop);
+
+// Функция блокировки полей
 
 const blocksForm = function () {
   adFormFieldset.forEach(function (formFieldset) {
@@ -189,12 +243,9 @@ const unlocksFormFields = function () {
   });
   map.classList.remove(`map--faded`);
   adForm.classList.remove(`ad-form--disabled`);
-  // createCard(mockPinsData[0]);
+  inputAddress.setAttribute(`disabled`, `disabled`);
 };
 
-const writeDownAddress = function (addressX, addressY) {
-  inputAddress.value = (`${addressX}, ${addressY}`);
-};
 
 // Перевод страницы в активное состояние левой кнопкой мыши
 
@@ -211,7 +262,8 @@ mapPinMain.addEventListener(`mousedown`, function (evt) {
 mapPinMain.addEventListener(`keydown`, function (evt) {
   if (evt.key === `Enter`) {
     unlocksFormFields();
-    writeDownAddress(`${mapPinMain.offsetLeft}, ${mapPinMain.offsetTop}`);
+    writeDownAddress(mapPinMain.offsetLeft, mapPinMain.offsetTop);
+    activatesRenderingSimilarAds();
   }
 });
 
@@ -229,38 +281,45 @@ const checksAdTitleConditions = function () {
   }
 };
 
-// Обработчик событий для проверки валидации комнат и гостей
+// Валидация полей карточки
+
+const validationType = document.querySelector(`#type`).option;
+const validationPrice = document.querySelector(`#price`);
+const validationTimeIn = document.querySelector(`#timein`).option;
+const validationTimeOut = document.querySelector(`#timeout`).option;
+
+// Проверка типа жилья с мин. стоимостью
+
+const validationCostTypicalHousing = function () {
+  if (validationType.value.bungalow && validationPrice < 0) {
+    validationType.setCustomValidity(`Минимальная стоимость аренды бунгало 0, введите 0 или больше.`);
+  } else if (validationType.value.flat && validationPrice < 1000) {
+    validationType.setCustomValidity(`Минимальная стоимасть аренды квартир 1000 рублей`);
+  } else if (validationType.value.house && validationPrice < 5000) {
+    validationType.setCustomValidity(`Минимальная стоимость аренды домов 5000 рублей`);
+  } else if (validationType.value.palace && validationPrice < 10000) {
+    validationType.setCustomValidity(`Минимальная стоимость аренды дворцов 10000 рублей`);
+  } else {
+    validationType.setCustomValidity(``);
+  }
+};
+
+// Проверка соответствия времени вьезда и выезда
+
+const comparisonCheckInCheckOutTimes = function () {
+  if (validationTimeIn.value > validationTimeOut.value) {
+    validationTimeIn.setCustomValidity(`Время заезда не соответствует времени выезда`);
+  } else if (validationTimeIn.value < validationTimeOut.value) {
+    validationTimeIn.setCustomValidity(`Время заезда не должно быть меньше времени выезда`);
+  } else {
+    validationTimeIn.setCustomValidity(``);
+  }
+};
+
+// Обработчик событий для проверки валидации
 
 adFormSubmit.addEventListener(`click`, function () {
   checksAdTitleConditions();
-});
-
-// Открытие карточки объявления
-
-const mapPin = mapPins.querySelectorAll(`.map__pin`);
-
-const findIconsMap = function () {
-  // for (let i = 1; i < mapPin.length; i++) {
-    if (mapPinMain !== mapPin) {
-      createCard(mockPinsData[0]);
-      }
-    // const mapsPin = [i];
-
-  // }
-  console.log(mapPin);
-};
-
-mapPins.addEventListener(`click`, function () {
-  findIconsMap();
-});
-
-// Закрытие карточки объявления
-
-const popupClose = cardTemplate.querySelector(`.popup__close`);
-
-popupClose.addEventListener(`click`, function (evt) {
-  evt.preventDefault();
-  // Не получаетсяя добавить класс
-  cardTemplate.classList.add(`hidden`);
-  // console.log(cardTemplate);
+  validationCostTypicalHousing();
+  comparisonCheckInCheckOutTimes();
 });
