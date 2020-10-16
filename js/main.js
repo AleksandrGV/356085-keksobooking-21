@@ -288,19 +288,17 @@ const validationPrice = document.querySelector(`#price`);
 const validationTimeIn = document.querySelector(`#timein`);
 const validationTimeOut = document.querySelector(`#timeout`);
 
-console.log(validationType.options[1]);
-console.log(validationPrice);
 
 // Проверка типа жилья с мин. стоимостью
 
 const validationCostTypicalHousing = function () {
-  if (validationType.options[1].value && validationPrice < 0) {
+  if (validationType.value === `bungalow` && validationPrice.value < 0) {
     validationType.setCustomValidity(`Минимальная стоимость аренды бунгало 0 рублей, введите 0 или больше.`);
-  } else if (validationType.options[2].value && validationPrice < 1000) {
+  } else if (validationType.value === `flat` && validationPrice.value < 1000) {
     validationType.setCustomValidity(`Минимальная стоимость аренды квартир 1000 рублей`);
-  } else if (validationType.value[3].value && validationPrice < 5000) {
+  } else if (validationType.value === `house` && validationPrice.value < 5000) {
     validationType.setCustomValidity(`Минимальная стоимость аренды домов 5000 рублей`);
-  } else if (validationType.value[4].value && validationPrice < 10000) {
+  } else if (validationType.value === `palace` && validationPrice.value < 10000) {
     validationType.setCustomValidity(`Минимальная стоимость аренды дворцов 10000 рублей`);
   } else {
     validationType.setCustomValidity(``);
