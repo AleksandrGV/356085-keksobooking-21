@@ -25,6 +25,10 @@ const mapPinMain = mapPins.querySelector(`.map__pin--main`);
 const roomNumber = document.querySelector(`#room_number`);
 const capacity = document.querySelector(`#capacity`);
 const adFormSubmit = document.querySelector(`.ad-form__submit`);
+const validationType = document.querySelector(`#type`);
+const validationPrice = document.querySelector(`#price`);
+const validationTimeIn = document.querySelector(`#timein`);
+const validationTimeOut = document.querySelector(`#timeout`);
 
 // Template только для образца их нужно клонировать и взаимодействовать только с клонами
 
@@ -158,8 +162,6 @@ document.addEventListener(`mousedown`, function (evt) {
 
 const mockPinsData = getCreatePins();
 
-// renderingPins(mockPinsData);
-
 // Функция отрисовки и клонирования фото
 
 const getCreateHomePhoto = function (containerPhotoCard, photosCard) {
@@ -282,13 +284,6 @@ const checksAdTitleConditions = function () {
 };
 
 // Валидация полей карточки
-
-const validationType = document.querySelector(`#type`);
-const validationPrice = document.querySelector(`#price`);
-const validationTimeIn = document.querySelector(`#timein`);
-const validationTimeOut = document.querySelector(`#timeout`);
-
-
 // Проверка типа жилья с мин. стоимостью
 
 const validationCostTypicalHousing = function () {
