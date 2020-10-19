@@ -14,7 +14,7 @@
       clonImg.setAttribute(`src`, `${pinNew.author.avatar}`);
       templateElement.appendChild(clonElement);
     });
-    window.mapPins.appendChild(templateElement);
+    window.variables.mapPins.appendChild(templateElement);
   };
 
   window.renderingPins = renderingPins;

@@ -31,8 +31,8 @@
 // const pinTemplate = document.querySelector(`#pin`).content.querySelector(`.map__pin`);
 // const cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card`);
 
-// auxiliary-functions.js
-// Функция получение случайного целого числа в заданном интервале, включительно
+// // auxiliary-functions.js
+// // Функция получение случайного целого числа в заданном интервале, включительно
 
 // const getRandomNumbers = function (min, max) {
 //   min = Math.ceil(min);
@@ -59,9 +59,14 @@
 //   }
 //   return photos;
 // };
+// window.main = {
+//   getRandomNumbers: getRandomNumbers(),
+//   getCreatePins: getCreatePins(),
+//   getRandomPhotos: getRandomPhotos()
+// };
 
-// array-of-objects.js
-// Функция для создания массива из сгенерированных объектов
+// // array-of-objects.js
+// // Функция для создания массива из сгенерированных объектов
 
 // const getMockBookingData = function () {
 //   const markerX = getRandomNumbers(0, 1400);
@@ -113,7 +118,7 @@
 // Открытие карточки через делегирование (всплытие)
 
 const onOpenCard = function (openCard) {
-  const popup = window.map.querySelector(`.popup`);
+  const popup = window.variables.map.querySelector(`.popup`);
   const mapPin = openCard.target.closest(`.map__pin`);
   popupClose(popup);
   if (mapPin) {
@@ -124,13 +129,13 @@ const onOpenCard = function (openCard) {
   }
 };
 
-window.mapPins.addEventListener(`click`, function (evt) {
+window.variables.mapPins.addEventListener(`click`, function (evt) {
   onOpenCard(evt);
 });
 
 // Временами не стабильно работает
 
-window.mapPins.addEventListener(`keydown`, function (evt) {
+window.variables.mapPins.addEventListener(`keydown`, function (evt) {
   if (evt.key === `Enter`) {
     onOpenCard(evt);
   }
@@ -145,14 +150,14 @@ const popupClose = function (popup) {
 };
 
 document.addEventListener(`keydown`, function (evt) {
-  const popup = window.map.querySelector(`.popup`);
+  const popup = window.variables.map.querySelector(`.popup`);
   if (evt.key === `Escape`) {
     popupClose(popup);
   }
 });
 
 document.addEventListener(`mousedown`, function (evt) {
-  const popup = window.map.querySelector(`.popup`);
+  const popup = document.querySelector(`.popup`);
   if (evt.button === 0) {
     popupClose(popup);
   }
@@ -160,7 +165,7 @@ document.addEventListener(`mousedown`, function (evt) {
 
 // Присваиваю константе значения функции создания и заполнения массива
 
-const mockPinsData = window.getCreatePins();
+const mockPinsData = window.arrayOfObjects.getCreatePins;
 
 // cloned-photos.js
 // Функция отрисовки и клонирования фото
@@ -218,19 +223,19 @@ const createCard = function (cardNew) {
 };
 
 const writeDownAddress = function (addressX, addressY) {
-  window.inputAddress.value = (`${addressX}, ${addressY}`);
+  window.variables.inputAddress.value = (`${addressX}, ${addressY}`);
 };
 
-writeDownAddress(window.mapPinMain.offsetLeft, window.mapPinMain.offsetTop);
+writeDownAddress(window.variables.mapPinMain.offsetLeft, window.variables.mapPinMain.offsetTop);
 
 // page-state.js
 // Функция блокировки полей
 
 const blocksForm = function () {
-  window.adFormFieldset.forEach(function (formFieldset) {
+  window.variables.adFormFieldset.forEach(function (formFieldset) {
     formFieldset.setAttribute(`disabled`, `disabled`);
   });
-  window.formMapFilters.forEach(function (mapFilters) {
+  window.variables.formMapFilters.forEach(function (mapFilters) {
     mapFilters.setAttribute(`disabled`, `disabled`);
   });
 };
@@ -240,21 +245,21 @@ blocksForm();
 // Функция разблокировки полей
 
 const unlocksFormFields = function () {
-  window.adFormFieldset.forEach(function (itemFieldset) {
+  window.variables.adFormFieldset.forEach(function (itemFieldset) {
     itemFieldset.disabled = false;
   });
-  window.formMapFilters.forEach(function (itemFilters) {
+  window.variables.formMapFilters.forEach(function (itemFilters) {
     itemFilters.disabled = false;
   });
-  window.map.classList.remove(`map--faded`);
-  window.adForm.classList.remove(`ad-form--disabled`);
-  window.inputAddress.setAttribute(`disabled`, `disabled`);
+  window.variables.map.classList.remove(`map--faded`);
+  window.variables.adForm.classList.remove(`ad-form--disabled`);
+  window.variables.inputAddress.setAttribute(`disabled`, `disabled`);
 };
 
 
 // Перевод страницы в активное состояние левой кнопкой мыши
 
-window.mapPinMain.addEventListener(`mousedown`, function (evt) {
+window.variables.mapPinMain.addEventListener(`mousedown`, function (evt) {
   if (evt.button === 0) {
     unlocksFormFields();
     writeDownAddress(evt.x, evt.y);
@@ -264,7 +269,7 @@ window.mapPinMain.addEventListener(`mousedown`, function (evt) {
 
 // Перевод страницы в активный режим с клавиатуры
 
-window.mapPinMain.addEventListener(`keydown`, function (evt) {
+window.variables.mapPinMain.addEventListener(`keydown`, function (evt) {
   if (evt.key === `Enter`) {
     unlocksFormFields();
     writeDownAddress(window.mapPinMain.offsetLeft, window.mapPinMain.offsetTop);
