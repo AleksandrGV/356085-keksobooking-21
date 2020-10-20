@@ -13,7 +13,7 @@
 
   const getCreatePins = function () {
     const arrPins = [];
-    for (let i = 0; i < window.MOCK_BOOKING_DATA; i++) {
+    for (let i = 0; i < window.constants.MOCK_BOOKING_DATA; i++) {
       arrPins.push(getMockBookingData());
     }
     return arrPins;
@@ -24,7 +24,7 @@
   const getRandomPhotos = function () {
     const photos = [];
     for (let i = 0; i < getRandomNumbers(1, 3); i++) {
-      photos.push(window.variables.offerPhotos[(getRandomNumbers(0, 2))]);
+      photos.push(window.constants.OFFER_PHOTOS[(getRandomNumbers(0, 2))]);
     }
     return photos;
   };
@@ -40,15 +40,15 @@
         'avatar': `img/avatars/user0${getRandomNumbers(1, 8)}.png`
       },
       'offer': {
-        'title': window.variables.offerTitle[(getRandomNumbers(0, 7))],
+        'title': window.constants.OFFER_TITLE[(getRandomNumbers(0, 7))],
         'address': `${markerX}, ${markerY}`,
         'price': getRandomNumbers(500, 15000),
-        'type': window.variables.offerType[(getRandomNumbers(0, 3))],
+        'type': window.constants.OFFER_TYPE[(getRandomNumbers(0, 3))],
         'rooms': getRandomNumbers(1, 5),
         'quests': getRandomNumbers(1, 5),
-        'checkin': window.variables.offerCheckinCheckout[(getRandomNumbers(0, 2))],
-        'checkuot': window.variables.offerCheckinCheckout[(getRandomNumbers(0, 2))],
-        'features': Array(getRandomNumbers(1, 4)).fill(window.variables.offerFeatures[getRandomNumbers(0, window.variables.offerFeatures.length - 1)]),
+        'checkin': window.constants.OFFER_CHECKIN_CHECKOUT[(getRandomNumbers(0, 2))],
+        'checkuot': window.constants.OFFER_CHECKIN_CHECKOUT[(getRandomNumbers(0, 2))],
+        'features': Array(getRandomNumbers(1, 4)).fill(window.constants.OFFER_FEATURES[getRandomNumbers(0, window.constants.OFFER_FEATURES.length - 1)]),
         'description': `Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне.
                         Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века.
                         Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн.`,
@@ -61,7 +61,7 @@
     };
   };
 
-  window.arrayOfObjects = {
+  window.services = {
     getRandomNumbers: getRandomNumbers(),
     getCreatePins: getCreatePins(),
     getRandomPhotos: getRandomPhotos(),

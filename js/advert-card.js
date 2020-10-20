@@ -9,7 +9,7 @@
     const templateElementCard = document.createDocumentFragment();
 
     const mapFilterContainer = document.querySelector(`.map__filters-container`);
-    const clonCardTemplate = window.cardTemplate.cloneNode(true);
+    const clonCardTemplate = window.constants.cardTemplate.cloneNode(true);
 
     // Короткая запись
 
@@ -33,17 +33,17 @@
 
     // Вставляю карточку перед mapFilterContaine
 
-    window.map.insertBefore(templateElementCard, mapFilterContainer);
+    window.constants.map.insertBefore(templateElementCard, mapFilterContainer);
   };
 
   const writeDownAddress = function (addressX, addressY) {
-    window.variables.inputAddress.value = (`${addressX}, ${addressY}`);
+    window.constants.inputAddress.value = (`${addressX}, ${addressY}`);
   };
 
-  writeDownAddress(window.variables.mapPinMain.offsetLeft, window.variables.mapPinMain.offsetTop);
+  writeDownAddress(window.constants.mapPinMain.offsetLeft, window.constants.mapPinMain.offsetTop);
 
   window.advertCard = {
-    createCard: createCard(),
-    writeDownAddress: writeDownAddress()
+    createCard: createCard,
+    writeDownAddress: writeDownAddress
   };
 })();

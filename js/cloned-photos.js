@@ -2,6 +2,7 @@
 
 // cloned-photos.js
 // Функция отрисовки и клонирования фото
+
 (function () {
   const getCreateHomePhoto = function (containerPhotoCard, photosCard) {
     const fragmentPhotosCard = document.createDocumentFragment();
@@ -17,11 +18,11 @@
   // Функция активации похожих объявлений
 
   const activatesRenderingSimilarAds = function () {
-    window.renderingPins(window.main.mockPinsData);
+    window.pin.renderingPins(window.main.mockPinsData);
   };
 
   window.clonedPhotos = {
-    getCreateHomePhoto: getCreateHomePhoto(),
-    activatesRenderingSimilarAds: activatesRenderingSimilarAds()
+    getCreateHomePhoto: getCreateHomePhoto,
+    activatesRenderingSimilarAds: activatesRenderingSimilarAds
   };
 })();
