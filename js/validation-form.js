@@ -4,14 +4,14 @@
 // Валидация полей формы
 
 const checksAdTitleConditions = function () {
-  if (window.roomNumber.value > window.capacity.value) {
-    window.roomNumber.setCustomValidity(`Комнат и спальных мест больше чем гостей`);
-  } else if (window.roomNumber.value < window.capacity.value) {
-    window.roomNumber.setCustomValidity(`Комнат и спальных мест меньше чем гостей`);
-  } else if (window.roomNumber.valueMissin !== window.capacity.valueMissin) {
-    window.roomNumber.setCustomValidity(`Укажите одинаковое количество комнат и гостей`);
+  if (window.variables.roomNumber.value > window.variables.capacity.value) {
+    window.variables.roomNumber.setCustomValidity(`Комнат и спальных мест больше чем гостей`);
+  } else if (window.variables.roomNumber.value < window.variables.capacity.value) {
+    window.variables.roomNumber.setCustomValidity(`Комнат и спальных мест меньше чем гостей`);
+  } else if (window.variables.roomNumber.valueMissin !== window.variables.capacity.valueMissin) {
+    window.variables.roomNumber.setCustomValidity(`Укажите одинаковое количество комнат и гостей`);
   } else {
-    window.roomNumber.setCustomValidity(``);
+    window.variables.roomNumber.setCustomValidity(``);
   }
 };
 

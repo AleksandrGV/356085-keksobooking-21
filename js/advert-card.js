@@ -3,44 +3,47 @@
 // advert-card.js
 // Функция отрисовки карточки объявления
 
-const map = document.querySelector(`.map`);
+(function () {
+  const createCard = function (cardNew) {
 
-const cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card`);
+    const templateElementCard = document.createDocumentFragment();
 
-const createCard = function (cardNew) {
+    const mapFilterContainer = document.querySelector(`.map__filters-container`);
+    const clonCardTemplate = window.cardTemplate.cloneNode(true);
 
-  const templateElementCard = document.createDocumentFragment();
+    // Короткая запись
 
-  const mapFilterContainer = document.querySelector(`.map__filters-container`);
-  const clonCardTemplate = cardTemplate.cloneNode(true);
+    clonCardTemplate.querySelector(`.popup__avatar`).setAttribute(`src`, `${cardNew.author.avatar}`);
+    clonCardTemplate.querySelector(`.popup__title`).textContent = cardNew.offer.title;
+    clonCardTemplate.querySelector(`.popup__text--address`).textContent = `${cardNew.offer.address}`;
+    clonCardTemplate.querySelector(`.popup__text--price`).textContent = `${cardNew.offer.price}₽/ночь`;
+    clonCardTemplate.querySelector(`.popup__type`).textContent = `${cardNew.offer.type}`;
+    clonCardTemplate.querySelector(`.popup__text--capacity`).textContent = (`${cardNew.offer.rooms} комнат(ы) для ${cardNew.offer.quests} гостей`);
+    clonCardTemplate.querySelector(`.popup__text--time`).textContent = `Заезд после ${cardNew.offer.checkin}, выезд до ${cardNew.offer.checkuot}`;
+    clonCardTemplate.querySelector(`.popup__features`).setAttribute(`li`, `${cardNew.offer.features}`);
+    clonCardTemplate.querySelector(`.popup__description`).textContent = `${cardNew.offer.description}`;
 
-  // Короткая запись
+    const containerCardPhotos = clonCardTemplate.querySelector(`.popup__photos`);
 
-  clonCardTemplate.querySelector(`.popup__avatar`).setAttribute(`src`, `${cardNew.author.avatar}`);
-  clonCardTemplate.querySelector(`.popup__title`).textContent = cardNew.offer.title;
-  clonCardTemplate.querySelector(`.popup__text--address`).textContent = `${cardNew.offer.address}`;
-  clonCardTemplate.querySelector(`.popup__text--price`).textContent = `${cardNew.offer.price}₽/ночь`;
-  clonCardTemplate.querySelector(`.popup__type`).textContent = `${cardNew.offer.type}`;
-  clonCardTemplate.querySelector(`.popup__text--capacity`).textContent = (`${cardNew.offer.rooms} комнат(ы) для ${cardNew.offer.quests} гостей`);
-  clonCardTemplate.querySelector(`.popup__text--time`).textContent = `Заезд после ${cardNew.offer.checkin}, выезд до ${cardNew.offer.checkuot}`;
-  clonCardTemplate.querySelector(`.popup__features`).setAttribute(`li`, `${cardNew.offer.features}`);
-  clonCardTemplate.querySelector(`.popup__description`).textContent = `${cardNew.offer.description}`;
+    const homePhotoCard = window.clonedPhotos.getCreateHomePhoto(containerCardPhotos, cardNew.offer.photos);
 
-  const containerCardPhotos = clonCardTemplate.querySelector(`.popup__photos`);
+    containerCardPhotos.replaceChild(homePhotoCard, containerCardPhotos.querySelector(`.popup__photo`));
 
-  const homePhotoCard = getCreateHomePhoto(containerCardPhotos, cardNew.offer.photos);
+    templateElementCard.appendChild(clonCardTemplate);
 
-  containerCardPhotos.replaceChild(homePhotoCard, containerCardPhotos.querySelector(`.popup__photo`));
+    // Вставляю карточку перед mapFilterContaine
 
-  templateElementCard.appendChild(clonCardTemplate);
+    window.map.insertBefore(templateElementCard, mapFilterContainer);
+  };
 
-  // Вставляю карточку перед mapFilterContaine
+  const writeDownAddress = function (addressX, addressY) {
+    window.variables.inputAddress.value = (`${addressX}, ${addressY}`);
+  };
 
-  map.insertBefore(templateElementCard, mapFilterContainer);
-};
+  writeDownAddress(window.variables.mapPinMain.offsetLeft, window.variables.mapPinMain.offsetTop);
 
-const writeDownAddress = function (addressX, addressY) {
-  inputAddress.value = (`${addressX}, ${addressY}`);
-};
-
-writeDownAddress(mapPinMain.offsetLeft, mapPinMain.offsetTop);
+  window.advertCard = {
+    createCard: createCard(),
+    writeDownAddress: writeDownAddress()
+  };
+})();

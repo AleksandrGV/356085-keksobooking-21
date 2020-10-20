@@ -3,56 +3,55 @@
 // page-state.js
 // Функция блокировки полей
 
-const map = document.querySelector(`.map`);
-const adForm = document.querySelector(`.ad-form`);
-const adFormFieldset = document.querySelectorAll(`fieldset`);
-const formMapFilters = document.querySelectorAll(`.map__filter`);
-const inputAddress = document.querySelector(`#address`);
-const mapPinMain = document.querySelector(`.map__pin--main`);
-// const mapPinMain = mapPins.querySelector(`.map__pin--main`);
+(function () {
+  const blocksForm = function () {
+    window.variables.adFormFieldset.forEach(function (formFieldset) {
+      formFieldset.setAttribute(`disabled`, `disabled`);
+    });
+    window.variables.formMapFilters.forEach(function (mapFilters) {
+      mapFilters.setAttribute(`disabled`, `disabled`);
+    });
+  };
 
-const blocksForm = function () {
-  adFormFieldset.forEach(function (formFieldset) {
-    formFieldset.setAttribute(`disabled`, `disabled`);
+  blocksForm();
+
+  // Функция разблокировки полей
+
+  const unlocksFormFields = function () {
+    window.variables.adFormFieldset.forEach(function (itemFieldset) {
+      itemFieldset.disabled = false;
+    });
+    window.variables.formMapFilters.forEach(function (itemFilters) {
+      itemFilters.disabled = false;
+    });
+    window.variables.map.classList.remove(`map--faded`);
+    window.variables.adForm.classList.remove(`ad-form--disabled`);
+    window.variables.inputAddress.setAttribute(`disabled`, `disabled`);
+  };
+
+
+  // Перевод страницы в активное состояние левой кнопкой мыши
+
+  window.variables.mapPinMain.addEventListener(`mousedown`, function (evt) {
+    if (evt.button === 0) {
+      unlocksFormFields();
+      window.advertCard.writeDownAddress(evt.x, evt.y);
+      window.advertCard.activatesRenderingSimilarAds();
+    }
   });
-  formMapFilters.forEach(function (mapFilters) {
-    mapFilters.setAttribute(`disabled`, `disabled`);
+
+  // Перевод страницы в активный режим с клавиатуры
+
+  window.variables.mapPinMain.addEventListener(`keydown`, function (evt) {
+    if (evt.key === `Enter`) {
+      unlocksFormFields();
+      window.advertCard.writeDownAddress(window.mapPinMain.offsetLeft, window.mapPinMain.offsetTop);
+      window.advertCard.activatesRenderingSimilarAds();
+    }
   });
-};
 
-blocksForm();
-
-// Функция разблокировки полей
-
-const unlocksFormFields = function () {
-  adFormFieldset.forEach(function (itemFieldset) {
-    itemFieldset.disabled = false;
-  });
-  formMapFilters.forEach(function (itemFilters) {
-    itemFilters.disabled = false;
-  });
-  map.classList.remove(`map--faded`);
-  adForm.classList.remove(`ad-form--disabled`);
-  inputAddress.setAttribute(`disabled`, `disabled`);
-};
-
-
-// Перевод страницы в активное состояние левой кнопкой мыши
-
-mapPinMain.addEventListener(`mousedown`, function (evt) {
-  if (evt.button === 0) {
-    unlocksFormFields();
-    writeDownAddress(evt.x, evt.y);
-    activatesRenderingSimilarAds();
-  }
-});
-
-// Перевод страницы в активный режим с клавиатуры
-
-mapPinMain.addEventListener(`keydown`, function (evt) {
-  if (evt.key === `Enter`) {
-    unlocksFormFields();
-    writeDownAddress(mapPinMain.offsetLeft, mapPinMain.offsetTop);
-    activatesRenderingSimilarAds();
-  }
-});
+  window.pageState = {
+    blocksForm: blocksForm(),
+    unlocksFormFields: unlocksFormFields(),
+  };
+})();
