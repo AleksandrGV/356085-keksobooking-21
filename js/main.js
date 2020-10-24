@@ -19,11 +19,7 @@ window.main = {
 
   window.constants.mapPinMain.addEventListener(`mousedown`, function (evt) {
     evt.preventDefault();
-    if (evt.button === 0) {
-      window.pageState.unlocksFormFields();
-      window.advertCard.writeDownAddress(evt.x, evt.y);
-      window.clonedPhotos.activatesRenderingSimilarAds();
-    }
+
 
     // Находим начальные координаты
     let startCoordinates = {
@@ -59,6 +55,11 @@ window.main = {
 
     onMouseUp = function (upEvt) {
       upEvt.preventDefault();
+      if (evt.button === 0) {
+        window.pageState.unlocksFormFields();
+        window.advertCard.writeDownAddress(evt.x, evt.y);
+        window.clonedPhotos.activatesRenderingSimilarAds();
+      }
 
       document.removeEventListener(`mousemove`, onMouseMove);
       document.removeEventListener(`mouseup`, onMouseUp);
