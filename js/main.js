@@ -14,7 +14,7 @@ window.main = {
     top: window.constants.mapPins.offsetTop,
     left: window.constants.mapPins.offsetLeft,
     bottom: window.constants.mapPins.offsetTop + window.constants.mapPins.offsetHeight - window.constants.mapPinMain.offsetHeight,
-    right: Number(window.constants.mapPins.offsetLeft + window.constants.mapPins.offsetWidth)
+    right: window.constants.mapPins.offsetLeft + window.constants.mapPins.offsetWidth - window.constants.mapPinMain.offsetWidth
   };
 
   window.constants.mapPinMain.addEventListener(`mousedown`, function (evt) {
@@ -48,14 +48,12 @@ window.main = {
         y: moveEvt.clientY
       };
 
-      if (window.constants.mapPinMain.offsetTop - shift.y + `px` >= limitField.top + `px` && window.constants.mapPinMain.offsetTop - shift.y + `px` <= limitField.bottom + `px`) {
+      if (window.constants.mapPinMain.offsetTop - shift.y >= limitField.top && window.constants.mapPinMain.offsetTop - shift.y <= limitField.bottom) {
         window.constants.mapPinMain.style.top = (window.constants.mapPinMain.offsetTop - shift.y) + `px`;
-        console.log(`ВерхНиз`);
       }
 
-      if (window.constants.mapPinMain.offsetLeft - shift.x + `px` >= limitField.left + `px` && window.constants.mapPinMain.offsetLeft - shift.x + `px` <= limitField.right + `px`) {
+      if (window.constants.mapPinMain.offsetLeft - shift.x >= limitField.left && window.constants.mapPinMain.offsetLeft - shift.x <= limitField.right) {
         window.constants.mapPinMain.style.left = (window.constants.mapPinMain.offsetLeft - shift.x) + `px`;
-        console.log(`ЛевоПраво`);
       }
     };
 
