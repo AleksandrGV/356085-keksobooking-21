@@ -13,8 +13,6 @@
     });
   };
 
-  blocksForm();
-
   // Функция разблокировки полей
 
   const unlocksFormFields = function () {
@@ -29,23 +27,11 @@
     window.constants.inputAddress.setAttribute(`disabled`, `disabled`);
   };
 
-
-  // Перевод страницы в активное состояние левой кнопкой мыши
-
-  window.constants.mapPinMain.addEventListener(`mousedown`, function (evt) {
-    if (evt.button === 0) {
-      unlocksFormFields();
-      window.advertCard.writeDownAddress(evt.x, evt.y);
-      window.clonedPhotos.activatesRenderingSimilarAds();
-    }
-  });
-
   // Перевод страницы в активный режим с клавиатуры
 
   window.constants.mapPinMain.addEventListener(`keydown`, function (evt) {
     if (evt.key === `Enter`) {
       unlocksFormFields();
-      window.advertCard.writeDownAddress(window.mapPinMain.offsetLeft, window.mapPinMain.offsetTop);
       window.clonedPhotos.activatesRenderingSimilarAds();
     }
   });

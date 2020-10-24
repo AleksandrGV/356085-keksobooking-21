@@ -3,6 +3,7 @@
 // auxiliary-functions.js
 
 (function () {
+
   // Функция получение случайного целого числа в заданном интервале, включительно
 
   const getRandomNumbers = function (min, max) {

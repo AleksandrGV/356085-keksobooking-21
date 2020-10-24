@@ -20,8 +20,6 @@
     onOpenCard(evt);
   });
 
-  // Временами не стабильно работает
-
   window.constants.mapPins.addEventListener(`keydown`, function (evt) {
     if (evt.key === `Enter`) {
       onOpenCard(evt);

@@ -33,8 +33,8 @@
   // Функция для создания массива из сгенерированных объектов
 
   const getMockBookingData = function () {
-    const markerX = getRandomNumbers(0, 1400);
-    const markerY = getRandomNumbers(130, 630);
+    const markerX = getRandomNumbers(window.constants.MARKER_X_MIN, window.constants.MARKER_X_MAX);
+    const markerY = getRandomNumbers(window.constants.MARKER_Y_MIN, window.constants.MARKER_Y_MAX);
     return {
       'author': {
         'avatar': `img/avatars/user0${getRandomNumbers(1, 8)}.png`

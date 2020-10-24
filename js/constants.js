@@ -17,6 +17,11 @@
     OFFER_PHOTOS: [`http://o0.github.io/assets/images/tokyo/hotel1.jpg`,
       `http://o0.github.io/assets/images/tokyo/hotel2.jpg`, `http://o0.github.io/assets/images/tokyo/hotel3.jpg`],
 
+    MARKER_X_MIN: 40,
+    MARKER_X_MAX: 1180,
+    MARKER_Y_MIN: 130,
+    MARKER_Y_MAX: 630,
+
     map: document.querySelector(`.map`),
     mapPins: document.querySelector(`.map__pins`),
     adForm: document.querySelector(`.ad-form`),
@@ -33,7 +38,8 @@
     validationTimeIn: document.querySelector(`#timein`),
     validationTimeOut: document.querySelector(`#timeout`),
     pinTemplate: document.querySelector(`#pin`).content.querySelector(`.map__pin`),
-    cardTemplate: document.querySelector(`#card`).content.querySelector(`.map__card`)
+    cardTemplate: document.querySelector(`#card`).content.querySelector(`.map__card`),
+
   };
 
 })();
