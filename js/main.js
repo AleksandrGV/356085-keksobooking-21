@@ -4,78 +4,41 @@ window.main = {
   mockPinsData: window.services.getCreatePins
 };
 
-// Перетаскивание метки
+
+// Вызываю networking
 
 (function () {
-  let onMouseMove;
-  let onMouseUp;
-
-  let limitField = {
-    top: window.constants.mapPins.offsetTop,
-    left: window.constants.mapPins.offsetLeft,
-    bottom: window.constants.mapPins.offsetTop + window.constants.mapPins.offsetHeight - window.constants.mapPinMain.offsetHeight,
-    right: window.constants.mapPins.offsetLeft + window.constants.mapPins.offsetWidth - window.constants.mapPinMain.offsetWidth
+  const onError = function (message) {
+    console.error(message);
   };
 
-  window.constants.mapPinMain.addEventListener(`mousedown`, function (evt) {
-    evt.preventDefault();
+  const onSuccess = function (animals) {
+    console.log(animals);
+  };
 
+  window.networking.loading(`https://21.javascript.pages.academy/keksobooking/data`, onSuccess, onError);
+})();
 
-    // Находим начальные координаты
-    let startCoordinates = {
-      x: evt.clientX,
-      y: evt.clientY
-    };
+// pin.js
+// Функция отрисовки клонированных элементов Pin
 
-    let dragged = false;
+(function () {
+  // const renderingPins =
+  window.networking.loading(function (pinsClone) {
+    const templateElement = document.createDocumentFragment();
 
-    onMouseMove = function (moveEvt) {
-      moveEvt.preventDefault();
+    pinsClone.forEach(function (pinNew, index) {
+      const clonElement = window.constants.pinTemplate.cloneNode(true);
+      const clonImg = window.constants.pinTemplate.querySelector(`img`);
+      clonElement.setAttribute(`style`, `left: ${pinNew.location.x}px; top: ${pinNew.location.y}px`);
+      clonElement.dataset.indexPin = index;
+      clonImg.setAttribute(`src`, `${pinNew.author.avatar}`);
+      templateElement.appendChild(clonElement);
+    });
+    window.constants.mapPins.appendChild(templateElement);
+  }, function () {});
 
-      dragged = true;
-
-      let shift = {
-        x: startCoordinates.x - moveEvt.clientX,
-        y: startCoordinates.y - moveEvt.clientY
-      };
-
-      startCoordinates = {
-        x: moveEvt.clientX,
-        y: moveEvt.clientY
-      };
-
-      if (window.constants.mapPinMain.offsetTop - shift.y >= limitField.top && window.constants.mapPinMain.offsetTop - shift.y <= limitField.bottom) {
-        window.constants.mapPinMain.style.top = (window.constants.mapPinMain.offsetTop - shift.y) + `px`;
-      }
-
-      if (window.constants.mapPinMain.offsetLeft - shift.x >= limitField.left && window.constants.mapPinMain.offsetLeft - shift.x <= limitField.right) {
-        window.constants.mapPinMain.style.left = (window.constants.mapPinMain.offsetLeft - shift.x) + `px`;
-      }
-    };
-
-    onMouseUp = function (upEvt) {
-      upEvt.preventDefault();
-      if (evt.button === 0) {
-        window.pageState.unlocksFormFields();
-        window.advertCard.writeDownAddress(evt.x, evt.y);
-        window.clonedPhotos.activatesRenderingSimilarAds();
-      }
-
-      document.removeEventListener(`mousemove`, onMouseMove);
-      document.removeEventListener(`mouseup`, onMouseUp);
-
-      if (dragged) {
-
-        const onClickPreventDefault = function (clickEvt) {
-          clickEvt.preventDefault();
-          window.constants.mapPinMain.removeEventListener(`click`, onClickPreventDefault);
-        };
-        window.constants.mapPinMain.addEventListener(`click`, onClickPreventDefault);
-      }
-    };
-
-    document.addEventListener(`mousemove`, onMouseMove);
-    document.addEventListener(`mouseup`, onMouseUp);
-  });
-
+  // window.pin = {
+  //   renderingPins: renderingPins
+  // };
 })();

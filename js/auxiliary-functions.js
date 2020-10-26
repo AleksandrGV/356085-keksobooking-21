@@ -17,7 +17,8 @@
   const getCreatePins = function () {
     const arrPins = [];
     for (let i = 0; i < window.constants.MOCK_BOOKING_DATA; i++) {
-      arrPins.push(window.services.getMockBookingData);
+      arrPins.push(window.networking.loading);
+      // arrPins.push(window.services.getMockBookingData);
     }
     return arrPins;
   };

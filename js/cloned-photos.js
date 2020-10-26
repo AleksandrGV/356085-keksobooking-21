@@ -18,7 +18,8 @@
   // Функция активации похожих объявлений
 
   const activatesRenderingSimilarAds = function () {
-    window.pin.renderingPins(window.main.mockPinsData);
+    window.networking.loading(window.main.mockPinsData);
+    // window.pin.renderingPins(window.main.mockPinsData);
   };
 
   window.clonedPhotos = {
