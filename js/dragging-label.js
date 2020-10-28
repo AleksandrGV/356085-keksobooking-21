@@ -52,7 +52,7 @@
     onMouseUp = function (upEvt) {
       upEvt.preventDefault();
       if (evt.button === 0) {
-        window.pin.renderingPins(window.main.data);
+        // window.pin.renderingPins(window.main.data);
         window.pageState.unlocksFormFields();
         window.advertCard.writeDownAddress(evt.x, evt.y);
         window.clonedPhotos.activatesRenderingSimilarAds();
