@@ -54,4 +54,5 @@
   window.networking = {
     loading: loading
   };
+
 })();

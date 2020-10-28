@@ -15,7 +15,7 @@
     const arrPins = [];
     for (let i = 0; i < window.constants.MOCK_BOOKING_DATA; i++) {
       arrPins.push(window.networking.loading);
-      // arrPins.push(getMockBookingData());
+      // arrPins.push(getMockBookingData);
     }
     return arrPins;
   };
@@ -34,6 +34,8 @@
   // Функция для создания массива из сгенерированных объектов
 
   // const getMockBookingData = function () {
+  //   window.networking.loading;
+  // };
   //   const markerX = getRandomNumbers(window.constants.MARKER_X_MIN, window.constants.MARKER_X_MAX);
   //   const markerY = getRandomNumbers(window.constants.MARKER_Y_MIN, window.constants.MARKER_Y_MAX);
   //   return {
@@ -65,7 +67,7 @@
   window.services = {
     getRandomNumbers: getRandomNumbers(),
     getCreatePins: getCreatePins(),
-    getRandomPhotos: getRandomPhotos(),
+    getRandomPhotos: getRandomPhotos()
     // getMockBookingData: getMockBookingData()
   };
 })();
