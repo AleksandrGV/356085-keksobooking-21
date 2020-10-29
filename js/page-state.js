@@ -31,13 +31,16 @@
 
   window.constants.mapPinMain.addEventListener(`keydown`, function (evt) {
     if (evt.key === `Enter`) {
+      window.networking.load(window.draggingLabel.onSuccess);
       unlocksFormFields();
-      window.clonedPhotos.activatesRenderingSimilarAds();
+      // window.clonedPhotos.activatesRenderingSimilarAds();
     }
   });
 
   window.pageState = {
     blocksForm: blocksForm,
-    unlocksFormFields: unlocksFormFields,
+    unlocksFormFields: unlocksFormFields
   };
+
+  blocksForm();
 })();

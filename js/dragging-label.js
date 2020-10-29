@@ -13,6 +13,10 @@
     right: window.constants.mapPins.offsetLeft + window.constants.mapPins.offsetWidth - window.constants.mapPinMain.offsetWidth
   };
 
+  const onSuccess = function (data) {
+    window.pin.renderingPins(data);
+  };
+
   window.constants.mapPinMain.addEventListener(`mousedown`, function (evt) {
     evt.preventDefault();
 
@@ -52,10 +56,9 @@
     onMouseUp = function (upEvt) {
       upEvt.preventDefault();
       if (evt.button === 0) {
-        // window.pin.renderingPins(window.main.data);
+        window.networking.load(onSuccess);
         window.pageState.unlocksFormFields();
         window.advertCard.writeDownAddress(evt.x, evt.y);
-        window.clonedPhotos.activatesRenderingSimilarAds();
       }
 
       document.removeEventListener(`mousemove`, onMouseMove);
@@ -74,5 +77,9 @@
     document.addEventListener(`mousemove`, onMouseMove);
     document.addEventListener(`mouseup`, onMouseUp);
   });
+
+  window.draggingLabel = {
+    onSuccess: onSuccess
+  };
 
 })();

@@ -1,32 +1,22 @@
 'use strict';
 
 window.main = {
-  mockPinsData: window.services.getCreatePins
+  mockPinsData: window.services.getCreatePins,
 };
 
 
-// Вызываю networking
+// Вывод сообщения с ошибкой
 
-(function () {
-  const onError = function (message) {
-    console.error(message);
-  };
+const errorHandler = function (errorMessage) {
+  let blockNode = document.createElement(`div`);
+  blockNode.style = `display: flex; align-items: center; justify-content: center; min-height: 100px; z-index: 100; background-color: red; color: white`;
+  blockNode.style.position = `absolute`;
+  blockNode.style.left = 0;
+  blockNode.style.right = 0;
+  blockNode.style.fontSize = `34px`;
 
-  const onSuccess = function (data) {
-    // console.log(window.pin.renderingPins(animals));
-    window.constants.mapPinMain.addEventListener(`mousedown`, function (evt) {
-      // console.log(data);
-      if (evt.button === 0) {
-        window.pin.renderingPins(data);
-        // window.pageState.unlocksFormFields();
-        // window.advertCard.writeDownAddress(evt.x, evt.y);
-        // window.clonedPhotos.activatesRenderingSimilarAds();
-      }
-    });
-  };
+  blockNode.textContent = errorMessage;
+  document.body.insertAdjacentElement(`afterbegin`, blockNode);
+};
 
-  // window.networking.loading(`https://21.javascript.pages.academy/keksobooking/unknownfile`, onSuccess, onError);
-
-  window.networking.loading(`https://21.javascript.pages.academy/keksobooking/data`, onSuccess, onError);
-})();
-
+window.networking.load(window.networking.request, errorHandler);

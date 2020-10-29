@@ -2,8 +2,11 @@
 
 (function () {
 
+  window.serverDataset = [];
+
   // Получение данных с сервера
-  const loading = function (url, onSuccess, onError) {
+
+  const request = function (method, url, onSuccess, onError) {
 
     const xhr = new XMLHttpRequest();
 
@@ -12,18 +15,20 @@
     xhr.addEventListener(`load`, function () {
 
       let error;
+
       switch (xhr.status) {
-        case 200:
+        case window.constants.REQUEST_SERVER_DATA_STATUS.OK:
+          window.serverDataset = xhr.response;
           onSuccess(xhr.response);
           break;
 
-        case 400:
+        case window.constants.REQUEST_SERVER_DATA_STATUS.REQUEST_FAILED:
           error = `Ошибка запроса`;
           break;
-        case 401:
+        case window.constants.REQUEST_SERVER_DATA_STATUS.USER_AUTHORIZATION_REQUIRED:
           error = `Необходима авторизация пользователя`;
           break;
-        case 404:
+        case window.constants.REQUEST_SERVER_DATA_STATUS.DATA_NOT_FOUND:
           error = `Данные не найдены`;
           break;
 
@@ -44,15 +49,34 @@
       onError(`Длительное выполнение запроса ` + xhr.timeout + ` мс`);
     });
 
-    xhr.timeout = 10000;
+    xhr.timeout = window.constants.xhrTimeout;
 
-    xhr.open(`GET`, url);
+    xhr.open(method, url);
 
     xhr.send();
   };
 
+  const load = function (onSuccess, onError) {
+    request(window.constants.REQUEST_METHOD.GET, window.constants.REQUEST_URL.URL_LOAD, onSuccess, onError);
+  };
+
+  const send = function (onSuccess, onError) {
+    request(window.constants.REQUEST_METHOD.POST, window.constants.REQUEST_URL.URL_SEND, onSuccess, onError);
+  };
+
+  function LoadSendArgumentFirst(argument) {
+    return argument;
+  }
+
+  function LoadSendArgumentSecond(argument) {
+    throw new Error(argument);
+  }
+
+  load(LoadSendArgumentFirst, LoadSendArgumentSecond);
+
   window.networking = {
-    loading: loading
+    load: load,
+    send: send,
   };
 
 })();

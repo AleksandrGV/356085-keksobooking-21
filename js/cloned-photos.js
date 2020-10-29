@@ -15,15 +15,7 @@
     return fragmentPhotosCard;
   };
 
-  // Функция активации похожих объявлений
-
-  const activatesRenderingSimilarAds = function () {
-    window.networking.loading(window.main.mockPinsData);
-    // window.pin.renderingPins(window.main.mockPinsData);
-  };
-
   window.clonedPhotos = {
-    getCreateHomePhoto: getCreateHomePhoto,
-    activatesRenderingSimilarAds: activatesRenderingSimilarAds
+    getCreateHomePhoto: getCreateHomePhoto
   };
 })();
