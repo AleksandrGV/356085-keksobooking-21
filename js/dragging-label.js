@@ -1,9 +1,5 @@
 'use strict';
 
-window.main = {
-  mockPinsData: window.services.getCreatePins
-};
-
 // Перетаскивание метки
 
 (function () {
@@ -15,6 +11,10 @@ window.main = {
     left: window.constants.mapPins.offsetLeft,
     bottom: window.constants.mapPins.offsetTop + window.constants.mapPins.offsetHeight - window.constants.mapPinMain.offsetHeight,
     right: window.constants.mapPins.offsetLeft + window.constants.mapPins.offsetWidth - window.constants.mapPinMain.offsetWidth
+  };
+
+  const onSuccess = function (data) {
+    window.pin.renderingPins(data);
   };
 
   window.constants.mapPinMain.addEventListener(`mousedown`, function (evt) {
@@ -56,9 +56,9 @@ window.main = {
     onMouseUp = function (upEvt) {
       upEvt.preventDefault();
       if (evt.button === 0) {
+        window.networking.load(onSuccess, window.services.errorHandler);
         window.pageState.unlocksFormFields();
         window.advertCard.writeDownAddress(evt.x, evt.y);
-        window.clonedPhotos.activatesRenderingSimilarAds();
       }
 
       document.removeEventListener(`mousemove`, onMouseMove);
@@ -77,5 +77,9 @@ window.main = {
     document.addEventListener(`mousemove`, onMouseMove);
     document.addEventListener(`mouseup`, onMouseUp);
   });
+
+  window.draggingLabel = {
+    onSuccess: onSuccess
+  };
 
 })();

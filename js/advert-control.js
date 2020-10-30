@@ -11,7 +11,7 @@
     if (mapPin) {
       const indexPinClone = mapPin.dataset.indexPin;
       if (indexPinClone) {
-        window.advertCard.createCard(window.main.mockPinsData[indexPinClone]);
+        window.advertCard.createCard(window.serverDataset[indexPinClone]);
       }
     }
   };

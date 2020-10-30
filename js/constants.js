@@ -22,6 +22,23 @@
     MARKER_Y_MIN: 130,
     MARKER_Y_MAX: 630,
 
+    REQUEST_METHOD: {
+      GET: `GET`,
+      POST: `POST`
+    },
+
+    REQUEST_URL: {
+      URL_LOAD: `https://21.javascript.pages.academy/keksobooking/data`,
+      URL_SEND: `https://21.javascript.pages.academy/keksobooking`
+    },
+
+    REQUEST_SERVER_DATA_STATUS: {
+      OK: 200,
+      REQUEST_FAILED: 400,
+      USER_AUTHORIZATION_REQUIRED: 401,
+      DATA_NOT_FOUND: 404
+    },
+
     map: document.querySelector(`.map`),
     mapPins: document.querySelector(`.map__pins`),
     adForm: document.querySelector(`.ad-form`),
@@ -40,6 +57,7 @@
     pinTemplate: document.querySelector(`#pin`).content.querySelector(`.map__pin`),
     cardTemplate: document.querySelector(`#card`).content.querySelector(`.map__card`),
 
+    xhrTimeout: 10000,
   };
 
 })();

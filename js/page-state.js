@@ -31,13 +31,15 @@
 
   window.constants.mapPinMain.addEventListener(`keydown`, function (evt) {
     if (evt.key === `Enter`) {
+      window.networking.load(window.draggingLabel.onSuccess, window.services.errorHandler);
       unlocksFormFields();
-      window.clonedPhotos.activatesRenderingSimilarAds();
     }
   });
 
   window.pageState = {
     blocksForm: blocksForm,
-    unlocksFormFields: unlocksFormFields,
+    unlocksFormFields: unlocksFormFields
   };
+
+  blocksForm();
 })();
