@@ -64,19 +64,10 @@
     request(window.constants.REQUEST_METHOD.POST, window.constants.REQUEST_URL.URL_SEND, onSuccess, onError);
   };
 
-  function LoadSendArgumentFirst(argument) {
-    return argument;
-  }
-
-  function LoadSendArgumentSecond(argument) {
-    throw new Error(argument);
-  }
-
-  load(LoadSendArgumentFirst, LoadSendArgumentSecond);
-
   window.networking = {
+    request: request,
     load: load,
-    send: send,
+    send: send
   };
 
 })();

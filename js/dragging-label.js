@@ -56,7 +56,7 @@
     onMouseUp = function (upEvt) {
       upEvt.preventDefault();
       if (evt.button === 0) {
-        window.networking.load(onSuccess);
+        window.networking.load(onSuccess, window.services.errorHandler);
         window.pageState.unlocksFormFields();
         window.advertCard.writeDownAddress(evt.x, evt.y);
       }
