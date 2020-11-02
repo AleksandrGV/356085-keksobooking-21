@@ -14,7 +14,8 @@
   };
 
   const onSuccess = function (data) {
-    window.pin.renderingPins(data);
+    const activePin = data.slice(5);
+    window.pin.renderingPins(activePin);
   };
 
   window.constants.mapPinMain.addEventListener(`mousedown`, function (evt) {
