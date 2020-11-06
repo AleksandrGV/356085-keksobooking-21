@@ -8,7 +8,6 @@
 
     const templateElementCard = document.createDocumentFragment();
 
-    const mapFilterContainer = document.querySelector(`.map__filters-container`);
     const clonCardTemplate = window.constants.cardTemplate.cloneNode(true);
 
     // Короткая запись
@@ -33,7 +32,7 @@
 
     // Вставляю карточку перед mapFilterContaine
 
-    window.constants.map.insertBefore(templateElementCard, mapFilterContainer);
+    window.constants.map.insertBefore(templateElementCard, window.constants.mapFilterContainer);
   };
 
   const writeDownAddress = function (addressX, addressY) {

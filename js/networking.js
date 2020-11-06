@@ -8,6 +8,12 @@
 
   const request = function (method, url, onSuccess, onError) {
 
+    // Проверка если данныеп с сервера получены выходим из функции
+
+    if (window.serverDataset.length) {
+      return;
+    }
+
     const xhr = new XMLHttpRequest();
 
     xhr.responseType = `json`;

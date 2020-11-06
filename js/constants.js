@@ -39,6 +39,15 @@
       DATA_NOT_FOUND: 404
     },
 
+    HOUSING_FILTRATION: {
+      TYPE: `housing-type`,
+      PRICE: `housing-price`,
+      ROOMS: `housing-rooms`,
+      GUESTS: `housing-guests`,
+      FEATURES: `housing-features`
+    },
+
+    mapFilterContainer: document.querySelector(`.map__filters-container`),
     map: document.querySelector(`.map`),
     mapPins: document.querySelector(`.map__pins`),
     adForm: document.querySelector(`.ad-form`),

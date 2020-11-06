@@ -33,10 +33,19 @@
     document.body.insertAdjacentElement(`afterbegin`, blockNode);
   };
 
+  const removePreviusPins = function () {
+    const previusPins = window.constants.mapPins.querySelectorAll(`.map__pin:not(.map__pin--main)`);
+
+    for (let i = 0; i < previusPins.length; i++) {
+      previusPins[i].remove();
+    }
+  };
+
 
   window.services = {
     getRandomNumbers: getRandomNumbers,
     getRandomPhotos: getRandomPhotos,
+    removePreviusPins: removePreviusPins,
     errorHandler: errorHandler
   };
 })();
