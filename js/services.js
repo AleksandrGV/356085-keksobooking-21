@@ -41,11 +41,20 @@
     }
   };
 
+  // Удаление карточки
+
+  const remotePreviusCard = function () {
+    const removeCard = document.querySelector(`.popup`);
+
+    removeCard.remove();
+  };
+
 
   window.services = {
     getRandomNumbers: getRandomNumbers,
     getRandomPhotos: getRandomPhotos,
     removePreviusPins: removePreviusPins,
+    remotePreviusCard: remotePreviusCard,
     errorHandler: errorHandler
   };
 })();
