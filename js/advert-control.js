@@ -10,8 +10,8 @@
     popupClose(popup);
     if (mapPin) {
       const indexPinClone = mapPin.dataset.indexPin;
-      // const indexPinClone = mapPin.dataset.window.filtersPins;
-      if (indexPinClone && window.filtersPins) {
+      if (indexPinClone) {
+        // window.services.remotePreviusCard();
         window.advertCard.createCard(window.serverDataset[indexPinClone]);
       }
     }

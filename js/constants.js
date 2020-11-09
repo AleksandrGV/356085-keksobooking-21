@@ -47,6 +47,13 @@
       FEATURES: `housing-features`
     },
 
+    OFFER_PRICE_FILTER: {
+      MIN: 10000,
+      MAX: 50000
+    },
+
+    DEBOUNCE_INTERVAL: 500,
+
     mapFilterContainer: document.querySelector(`.map__filters-container`),
     map: document.querySelector(`.map`),
     mapPins: document.querySelector(`.map__pins`),
