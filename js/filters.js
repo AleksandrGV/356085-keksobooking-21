@@ -33,34 +33,48 @@
       window.filtersPins = window.serverDataset.filter(function (pin) {
         return pin.offer.guests === Number(value);
       });
-    } else if (id !== window.constants.HOUSING_FILTRATION.FEATURES) {
-      window.filtersPins = window.serverDataset.filter(function (pin) {
+    // } else if (id !== window.constants.HOUSING_FILTRATION.FEATURES) {
+    //   const featuresWrapper = document.querySelector(`#${window.constants.HOUSING_FILTRATION.FEATURES}`);
+    //   const featuresChecked = featuresWrapper.querySelectorAll(`.map__checkbox:checked`);
+    //   // console.log(featuresChecked);
+    //   let featuresFilter = [];
 
-        // if (pin.offer.features === `wifi`) {
-        //   return value === `wifi`;
-        // } else if (pin.offer.features === `dishwasher`) {
-        //   return value === `dishwasher`;
-        // } else if (pin.offer.features === `parking`) {
-        //   return value === `parking`;
-        // } else if (pin.offer.features === `washer`) {
-        //   return value === `washer`;
-        // } else if (pin.offer.features === `elevator`) {
-        //   return value === `elevator`;
-        // } else if (pin.offer.features === `conditioner`) {
-        //   return value === `conditioner`;
-        // }
-        console.log(pin.offer.features);
-        console.log(value);
-        return pin.offer.features === value;
-      });
+    //   for (let i = 0; i < featuresChecked.length; i++) {
+    //     featuresFilter.push(featuresChecked[i].value);
+    //   }
+    //     // console.log(featuresFilter);
+    //     // console.log(value);
+    //   window.filtersPins = window.serverDataset.filter(function (pin) {
+    //     // console.log(featuresChecked);
+
+    //     console.log(featuresFilter.every((feat) => pin.offer.featuresFilter.includes(feat)));
+    //     // console.log(featuresFilter);
+    //     // console.log(pin.offer.featuresFilter === window.filtersPins);
+    //   });
+    //   console.log(featuresFilter);
     }
     window.services.removePreviusPins();
     window.pin.renderingPins(window.filtersPins);
   };
 
   window.constants.mapFilterContainer.addEventListener(`change`, function (evt) {
-    if (evt.target.closest(window.constants.HOUSING_FILTRATION.FEATURES)) {
-      filterPinsActive(evt.target.checked, evt.target.value);
+    if (evt.target.closest(`#${window.constants.HOUSING_FILTRATION.FEATURES}`)) {
+      const featuresWrapper = document.querySelector(`#${window.constants.HOUSING_FILTRATION.FEATURES}`);
+      const featuresChecked = featuresWrapper.querySelectorAll(`.map__checkbox:checked`);
+
+      let featuresFilter = [];
+
+      for (let i = 0; i < featuresChecked.length; i++) {
+        featuresFilter.push(featuresChecked[i].value);
+      }
+      debugger
+      const filtersChecbox = window.serverDataset.slice().filter(function (pin) {
+        return featuresFilter.every((feat) => pin.offer.featuresFilter.includes(feat));
+      });
+      console.log(filtersChecbox);
+      console.log(featuresFilter);
+      console.log(window.pin.renderingPins(filtersChecbox));
+      // filterPinsActive(evt.target.checked, evt.target.value);
     }
     filterPinsActive(evt.target.id, evt.target.value);
   });
