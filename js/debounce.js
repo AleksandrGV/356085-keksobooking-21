@@ -15,8 +15,4 @@
     };
   };
 
-  // window.debounce = {
-  //   debounceFn: debounceFn
-  // };
-
 })();

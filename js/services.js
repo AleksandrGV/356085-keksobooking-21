@@ -11,13 +11,13 @@
 
   // Функция создания массива для фото карточки
 
-  const getRandomPhotos = function () {
-    const photos = [];
-    for (let i = 0; i < getRandomNumbers(1, 3); i++) {
-      photos.push(window.constants.OFFER_PHOTOS[(getRandomNumbers(0, 2))]);
-    }
-    return photos;
-  };
+  // const getRandomPhotos = function () {
+  //   const photos = [];
+  //   for (let i = 0; i < getRandomNumbers(1, 3); i++) {
+  //     photos.push(window.constants.OFFER_PHOTOS[(getRandomNumbers(0, 2))]);
+  //   }
+  //   return photos;
+  // };
 
   // Вывод сообщения с ошибкой
 
@@ -43,19 +43,20 @@
 
   // Удаление карточки
 
-  const remotePreviusCard = function () {
-    const removeCard = document.querySelector(`.popup`);
-
-    removeCard.remove();
+  const removePreviusCard = function () {
+    const removeCard = document.querySelector(`.map__card`);
+    for (let i = 0; removeCard.length; i++) {
+      removeCard[i].remove();
+    }
   };
 
 
   window.services = {
-    getRandomNumbers: getRandomNumbers,
-    getRandomPhotos: getRandomPhotos,
-    removePreviusPins: removePreviusPins,
-    remotePreviusCard: remotePreviusCard,
-    errorHandler: errorHandler
+    getRandomNumbers,
+    // getRandomPhotos: getRandomPhotos,
+    removePreviusPins,
+    removePreviusCard,
+    errorHandler
   };
 })();
 

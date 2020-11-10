@@ -4,11 +4,13 @@
 // Функция отрисовки карточки объявления
 
 (function () {
-  const createCard = function (cardNew) {
+  const clonCreateCard = function (cardNew) {
 
-    const templateElementCard = document.createDocumentFragment();
+    const cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card`);
 
-    const clonCardTemplate = window.constants.cardTemplate.cloneNode(true);
+    const clonTemplateElementCard = document.createDocumentFragment();
+
+    const clonCardTemplate = cardTemplate.cloneNode(true);
 
     // Короткая запись
 
@@ -28,11 +30,11 @@
 
     containerCardPhotos.replaceChild(homePhotoCard, containerCardPhotos.querySelector(`.popup__photo`));
 
-    templateElementCard.appendChild(clonCardTemplate);
+    clonTemplateElementCard.appendChild(clonCardTemplate);
 
     // Вставляю карточку перед mapFilterContaine
 
-    window.constants.map.insertBefore(templateElementCard, window.constants.mapFilterContainer);
+    window.constants.map.insertBefore(clonTemplateElementCard, window.constants.mapFilterContainer);
   };
 
   const writeDownAddress = function (addressX, addressY) {
@@ -42,7 +44,7 @@
   writeDownAddress(window.constants.mapPinMain.offsetLeft, window.constants.mapPinMain.offsetTop);
 
   window.advertCard = {
-    createCard: createCard,
-    writeDownAddress: writeDownAddress
+    clonCreateCard,
+    writeDownAddress
   };
 })();

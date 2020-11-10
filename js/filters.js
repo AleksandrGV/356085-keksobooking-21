@@ -14,14 +14,17 @@
     let filtersPinsGuests = [];
     let filtersPinsFeatures = [];
 
+
     if (value === `any`) {
-      window.filtersPins = window.serverDataset.slice(5);
+      window.filtersPins = window.serverDataset.slice(0, 5);
     } else if (id === window.constants.HOUSING_FILTRATION.TYPE) {
       filtersPinsType = window.serverDataset.filter(function (pin) {
+        // console.log(filtersPinsType.splice(0, pin.length));
+        // console.log(window.services.removePreviusCard());
         return pin.offer.type === value;
       });
     } else if (id === window.constants.HOUSING_FILTRATION.PRICE) {
-      filtersPinsPrice = window.serverDataset.slice(5).filter(function (pin) {
+      filtersPinsPrice = window.serverDataset.filter(function (pin) {
         if (pin.offer.price >= window.constants.OFFER_PRICE_FILTER.MIN && pin.offer.price <= window.constants.OFFER_PRICE_FILTER.MAX) {
           return value === `middle`;
         } else if (pin.offer.price < window.constants.OFFER_PRICE_FILTER.MIN) {
@@ -48,16 +51,20 @@
       for (let i = 0; i < featuresChecked.length; i++) {
         featuresFilter.push(featuresChecked[i].value);
       }
-      filtersPinsFeatures = window.serverDataset.slice(5).filter(function (pin) {
+      filtersPinsFeatures = window.serverDataset.slice(0, 5).filter(function (pin) {
         return featuresFilter.every((feat) => pin.offer.features.includes(feat));
       });
     }
     window.services.removePreviusPins();
 
-    const pinsActive = window.filtersPins.concat(filtersPinsType).concat(filtersPinsPrice)
-    .concat(filtersPinsRooms).concat(filtersPinsGuests).concat(filtersPinsFeatures);
+    const pinsActive = function () {
+      return window.filtersPins.concat(filtersPinsType).concat(filtersPinsPrice)
+      .concat(filtersPinsRooms).concat(filtersPinsGuests).concat(filtersPinsFeatures);
+    };
 
-    window.pin.renderingPins(pinsActive);
+    const pinsActiveConcat = pinsActive();
+
+    window.pin.clonRenderingPins(pinsActiveConcat);
   };
 
   window.constants.mapFilterContainer.addEventListener(`change`, function (evt) {
@@ -70,6 +77,6 @@
   });
 
   window.filters = {
-    filterPinsActive: filterPinsActive
+    filterPinsActive
   };
 })();

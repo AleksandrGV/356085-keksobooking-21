@@ -8,7 +8,7 @@
 
   const request = function (method, url, onSuccess, onError) {
 
-    // Проверка если данныеп с сервера получены выходим из функции
+    // Проверка если данные с сервера получены выходим из функции
 
     if (window.serverDataset.length) {
       return;
@@ -71,9 +71,9 @@
   };
 
   window.networking = {
-    request: request,
-    load: load,
-    send: send
+    request,
+    load,
+    send
   };
 
 })();

@@ -11,14 +11,15 @@
     if (mapPin) {
       const indexPinClone = mapPin.dataset.indexPin;
       if (indexPinClone) {
-        // window.services.remotePreviusCard();
-        window.advertCard.createCard(window.serverDataset[indexPinClone]);
+        window.advertCard.clonCreateCard(window.serverDataset[indexPinClone]);
+        // window.filters.filterPinsActive(openCard, indexPinClone);
       }
     }
   };
 
   window.constants.mapPins.addEventListener(`click`, function (evt) {
     onOpenCard(evt);
+    // window.filters.filterPinsActive(evt);
   });
 
   window.constants.mapPins.addEventListener(`keydown`, function (evt) {
@@ -50,6 +51,6 @@
   });
 
   window.advertControl = {
-    onOpenCard: onOpenCard
+    onOpenCard
   };
 })();

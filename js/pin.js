@@ -4,21 +4,23 @@
 // Функция отрисовки клонированных элементов Pin
 
 (function () {
-  const renderingPins = function (pinsClone) {
-    const templateElement = document.createDocumentFragment();
+  const clonRenderingPins = function (pinsClone) {
+    const pinTemplate = document.querySelector(`#pin`).content.querySelector(`.map__pin`);
+    const clonTemplateElement = document.createDocumentFragment();
 
     pinsClone.forEach(function (pinNew, index) {
-      const clonElement = window.constants.pinTemplate.cloneNode(true);
-      const clonImg = window.constants.pinTemplate.querySelector(`img`);
+      const clonElement = pinTemplate.cloneNode(true);
+      const clonImg = clonElement.querySelector(`img`);
       clonElement.setAttribute(`style`, `left: ${pinNew.location.x}px; top: ${pinNew.location.y}px`);
       clonElement.dataset.indexPin = index;
       clonImg.setAttribute(`src`, `${pinNew.author.avatar}`);
-      templateElement.appendChild(clonElement);
+      clonTemplateElement.appendChild(clonElement);
     });
-    window.constants.mapPins.appendChild(templateElement);
+    window.constants.mapPins.appendChild(clonTemplateElement);
   };
 
   window.pin = {
-    renderingPins: renderingPins
+    clonRenderingPins
   };
+
 })();

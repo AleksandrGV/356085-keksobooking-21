@@ -37,8 +37,8 @@
   });
 
   window.pageState = {
-    blocksForm: blocksForm,
-    unlocksFormFields: unlocksFormFields
+    blocksForm,
+    unlocksFormFields
   };
 
   blocksForm();
