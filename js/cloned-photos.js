@@ -16,6 +16,6 @@
   };
 
   window.clonedPhotos = {
-    getCreateHomePhoto: getCreateHomePhoto
+    getCreateHomePhoto
   };
 })();

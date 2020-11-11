@@ -14,7 +14,8 @@
   };
 
   const onSuccess = function (data) {
-    window.pin.renderingPins(data);
+    const activePin = data.slice(0, 5);
+    window.pin.cloneRenderingPins(activePin);
   };
 
   window.constants.mapPinMain.addEventListener(`mousedown`, function (evt) {
@@ -79,7 +80,7 @@
   });
 
   window.draggingLabel = {
-    onSuccess: onSuccess
+    onSuccess
   };
 
 })();

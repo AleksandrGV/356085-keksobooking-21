@@ -2,21 +2,12 @@
 
 // services.js
 // Функция получение случайного целого числа в заданном интервале, включительно
+
 (function () {
   const getRandomNumbers = function (min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
-  };
-
-  // Функция создания массива для фото карточки
-
-  const getRandomPhotos = function () {
-    const photos = [];
-    for (let i = 0; i < getRandomNumbers(1, 3); i++) {
-      photos.push(window.constants.OFFER_PHOTOS[(getRandomNumbers(0, 2))]);
-    }
-    return photos;
   };
 
   // Вывод сообщения с ошибкой
@@ -33,11 +24,18 @@
     document.body.insertAdjacentElement(`afterbegin`, blockNode);
   };
 
+  const removePreviusPins = function () {
+    const previusPins = window.constants.mapPins.querySelectorAll(`.map__pin:not(.map__pin--main)`);
+
+    for (let i = 0; i < previusPins.length; i++) {
+      previusPins[i].remove();
+    }
+  };
 
   window.services = {
-    getRandomNumbers: getRandomNumbers,
-    getRandomPhotos: getRandomPhotos,
-    errorHandler: errorHandler
+    getRandomNumbers,
+    removePreviusPins,
+    errorHandler
   };
 })();
 

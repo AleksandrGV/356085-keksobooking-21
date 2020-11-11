@@ -11,7 +11,8 @@
     if (mapPin) {
       const indexPinClone = mapPin.dataset.indexPin;
       if (indexPinClone) {
-        window.advertCard.createCard(window.serverDataset[indexPinClone]);
+        const currentPins = window.filtersPins.length ? window.filtersPins : window.serverDataset;
+        window.advertCard.cloneCreateCard(currentPins[indexPinClone]);
       }
     }
   };
@@ -49,6 +50,6 @@
   });
 
   window.advertControl = {
-    onOpenCard: onOpenCard
+    onOpenCard
   };
 })();
