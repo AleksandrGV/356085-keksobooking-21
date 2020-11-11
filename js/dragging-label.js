@@ -15,7 +15,7 @@
 
   const onSuccess = function (data) {
     const activePin = data.slice(0, 5);
-    window.pin.clonRenderingPins(activePin);
+    window.pin.cloneRenderingPins(activePin);
   };
 
   window.constants.mapPinMain.addEventListener(`mousedown`, function (evt) {

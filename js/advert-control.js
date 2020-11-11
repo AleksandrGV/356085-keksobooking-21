@@ -11,15 +11,14 @@
     if (mapPin) {
       const indexPinClone = mapPin.dataset.indexPin;
       if (indexPinClone) {
-        window.advertCard.clonCreateCard(window.serverDataset[indexPinClone]);
-        // window.filters.filterPinsActive(openCard, indexPinClone);
+        const currentPins = window.filtersPins.length ? window.filtersPins : window.serverDataset;
+        window.advertCard.cloneCreateCard(currentPins[indexPinClone]);
       }
     }
   };
 
   window.constants.mapPins.addEventListener(`click`, function (evt) {
     onOpenCard(evt);
-    // window.filters.filterPinsActive(evt);
   });
 
   window.constants.mapPins.addEventListener(`keydown`, function (evt) {
