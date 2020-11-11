@@ -29,14 +29,6 @@
       DATA_NOT_FOUND: 404
     },
 
-    HOUSING_FILTRATION: {
-      TYPE: `housing-type`,
-      PRICE: `housing-price`,
-      ROOMS: `housing-rooms`,
-      GUESTS: `housing-guests`,
-      FEATURES: `housing-features`
-    },
-
     OFFER_PRICE_FILTER: {
       MIN: 10000,
       MAX: 50000
