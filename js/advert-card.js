@@ -6,11 +6,11 @@
 (function () {
   const cloneCreateCard = function (cardNew) {
 
-    const cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card`);
+    window.cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card`);
 
     const cloneTemplateElementCard = document.createDocumentFragment();
 
-    const cloneCardTemplate = cardTemplate.cloneNode(true);
+    const cloneCardTemplate = window.cardTemplate.cloneNode(true);
 
     // Короткая запись
 
@@ -47,4 +47,5 @@
     cloneCreateCard,
     writeDownAddress
   };
+
 })();

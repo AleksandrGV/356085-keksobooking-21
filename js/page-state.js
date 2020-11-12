@@ -5,7 +5,7 @@
 
 (function () {
   const blocksForm = function () {
-    window.constants.adFormFieldset.forEach(function (formFieldset) {
+    window.constants.adFormFieldsets.forEach(function (formFieldset) {
       formFieldset.setAttribute(`disabled`, `disabled`);
     });
     window.constants.formMapFilters.forEach(function (mapFilters) {
@@ -16,7 +16,7 @@
   // Функция разблокировки полей
 
   const unlocksFormFields = function () {
-    window.constants.adFormFieldset.forEach(function (itemFieldset) {
+    window.constants.adFormFieldsets.forEach(function (itemFieldset) {
       itemFieldset.disabled = false;
     });
     window.constants.formMapFilters.forEach(function (itemFilters) {

@@ -7,7 +7,6 @@
   const cloneRenderingPins = function (pinsClone) {
     const pinTemplate = document.querySelector(`#pin`).content.querySelector(`.map__pin`);
     const cloneTemplateElement = document.createDocumentFragment();
-
     pinsClone.forEach(function (pinNew, index) {
       const cloneElement = pinTemplate.cloneNode(true);
       const cloneImg = cloneElement.querySelector(`img`);

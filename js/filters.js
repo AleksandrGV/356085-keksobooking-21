@@ -4,7 +4,7 @@
 
 (function () {
 
-  const HOUSING_FILTRATION = {
+  const HousingFiltration = {
     TYPE: `housing-type`,
     PRICE: `housing-price`,
     ROOMS: `housing-rooms`,
@@ -12,7 +12,7 @@
     FEATURES: `housing-features`
   };
 
-  const HOUSING_OPTION = {
+  const HousingOption = {
     ANY: `any`,
     LOW: `low`,
     MIDDLE: `middle`,
@@ -50,36 +50,36 @@
     const filtration = getFormMapFilters();
     const features = getFeatures();
 
-    window.filtersPins = window.serverDataset.slice().filter(function (pin) {
-      if (filtration[HOUSING_FILTRATION.TYPE] === HOUSING_OPTION.ANY) {
+    window.filtersPins = window.serverDatasets.slice().filter(function (pin) {
+      if (filtration[HousingFiltration.TYPE] === HousingOption.ANY) {
         return true;
       } else {
-        return pin.offer.type === filtration[HOUSING_FILTRATION.TYPE];
+        return pin.offer.type === filtration[HousingFiltration.TYPE];
       }
     }).filter(function (pin) {
-      if (filtration[HOUSING_FILTRATION.PRICE] === HOUSING_OPTION.ANY) {
+      if (filtration[HousingFiltration.PRICE] === HousingOption.ANY) {
         return true;
       } else {
-        if (filtration[HOUSING_FILTRATION.PRICE] === HOUSING_OPTION.MIDDLE && pin.offer.price >= window.constants.OFFER_PRICE_FILTER.MIN && pin.offer.price <= window.constants.OFFER_PRICE_FILTER.MAX) {
+        if (filtration[HousingFiltration.PRICE] === HousingOption.MIDDLE && pin.offer.price >= window.constants.OfferPriceFilter.MIN && pin.offer.price <= window.constants.OfferPriceFilter.MAX) {
           return true;
-        } else if (filtration[HOUSING_FILTRATION.PRICE] === HOUSING_OPTION.LOW && pin.offer.price < window.constants.OFFER_PRICE_FILTER.MIN) {
+        } else if (filtration[HousingFiltration.PRICE] === HousingOption.LOW && pin.offer.price < window.constants.OfferPriceFilter.MIN) {
           return true;
-        } else if (filtration[HOUSING_FILTRATION.PRICE] === HOUSING_OPTION.HIGH && pin.offer.price > window.constants.OFFER_PRICE_FILTER.MAX) {
+        } else if (filtration[HousingFiltration.PRICE] === HousingOption.HIGH && pin.offer.price > window.constants.OfferPriceFilter.MAX) {
           return true;
         }
       }
       return false;
     }).filter(function (pin) {
-      if (filtration[HOUSING_FILTRATION.ROOMS] === HOUSING_OPTION.ANY) {
+      if (filtration[HousingFiltration.ROOMS] === HousingOption.ANY) {
         return true;
       } else {
-        return Number(pin.offer.rooms) === Number(filtration[HOUSING_FILTRATION.ROOMS]);
+        return Number(pin.offer.rooms) === Number(filtration[HousingFiltration.ROOMS]);
       }
     }).filter(function (pin) {
-      if (filtration[HOUSING_FILTRATION.GUESTS] === HOUSING_OPTION.ANY) {
+      if (filtration[HousingFiltration.GUESTS] === HousingOption.ANY) {
         return true;
       } else {
-        return Number(pin.offer.rooms) === Number(filtration[HOUSING_FILTRATION.GUESTS]);
+        return Number(pin.offer.rooms) === Number(filtration[HousingFiltration.GUESTS]);
       }
     }).filter(function (pin) {
       return features.every((feature) => pin.offer.features.includes(feature));
