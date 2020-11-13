@@ -4,13 +4,24 @@
 // Функция отрисовки карточки объявления
 
 (function () {
+
+  const updateFeatures = function (popup, cardData) {
+    const currentOfferFeatures = popup.querySelectorAll(`.popup__feature`);
+    currentOfferFeatures.forEach((feature) => {
+      const featureName = feature.className.slice(feature.className.lastIndexOf(`-`) + 1, feature.className.length);
+      if (!cardData.offer.features.includes(featureName)) {
+        feature.remove();
+      }
+    });
+  };
+
   const cloneCreateCard = function (cardNew) {
 
-    window.cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card`);
+    const cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card`);
 
     const cloneTemplateElementCard = document.createDocumentFragment();
 
-    const cloneCardTemplate = window.cardTemplate.cloneNode(true);
+    const cloneCardTemplate = cardTemplate.cloneNode(true);
 
     // Короткая запись
 
@@ -23,6 +34,8 @@
     cloneCardTemplate.querySelector(`.popup__text--time`).textContent = `Заезд после ${cardNew.offer.checkin}, выезд до ${cardNew.offer.checkout}`;
     cloneCardTemplate.querySelector(`.popup__features`).setAttribute(`li`, `${cardNew.offer.features}`);
     cloneCardTemplate.querySelector(`.popup__description`).textContent = `${cardNew.offer.description}`;
+
+    updateFeatures(cloneCardTemplate, cardNew);
 
     const containerCardPhotos = cloneCardTemplate.querySelector(`.popup__photos`);
 

@@ -7,10 +7,17 @@
 
   window.constants = {
 
+    MOUSE_BUTTON_NUMBER: 0,
+
     MARKER_X_MIN: 40,
     MARKER_X_MAX: 1180,
     MARKER_Y_MIN: 130,
     MARKER_Y_MAX: 630,
+
+    NumberOnKeyboard: {
+      ESCAPE: `Escape`,
+      ENTER: `Enter`
+    },
 
     RequestMethod: {
       GET: `GET`,
