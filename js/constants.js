@@ -3,11 +3,11 @@
 // constants.js
 // Первыми объявляются константы написанные большими буквами
 
-(function () {
+(() => {
 
   window.constants = {
-
     MOUSE_BUTTON_NUMBER: 0,
+    DEBOUNCE_INTERVAL: 500,
 
     MARKER_X_MIN: 40,
     MARKER_X_MAX: 1180,
@@ -35,13 +35,6 @@
       USER_AUTHORIZATION_REQUIRED: 401,
       DATA_NOT_FOUND: 404
     },
-
-    OfferPriceFilter: {
-      MIN: 10000,
-      MAX: 50000
-    },
-
-    DEBOUNCE_INTERVAL: 500,
 
     mapFilterContainer: document.querySelector(`.map__filters-container`),
     map: document.querySelector(`.map`),

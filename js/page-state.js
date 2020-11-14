@@ -3,23 +3,22 @@
 // page-state.js
 // Функция блокировки полей
 
-(function () {
-  const blocksForm = function () {
-    window.constants.adFormFieldsets.forEach(function (formFieldset) {
+(() => {
+  const blocksForm = () => {
+    window.constants.adFormFieldsets.forEach((formFieldset) => {
       formFieldset.setAttribute(`disabled`, `disabled`);
     });
-    window.constants.formMapFilters.forEach(function (mapFilters) {
+    window.constants.formMapFilters.forEach((mapFilters) => {
       mapFilters.setAttribute(`disabled`, `disabled`);
     });
   };
 
   // Функция разблокировки полей
-
-  const unlocksFormFields = function () {
-    window.constants.adFormFieldsets.forEach(function (itemFieldset) {
+  const unlocksFormFields = () => {
+    window.constants.adFormFieldsets.forEach((itemFieldset) => {
       itemFieldset.disabled = false;
     });
-    window.constants.formMapFilters.forEach(function (itemFilters) {
+    window.constants.formMapFilters.forEach((itemFilters) => {
       itemFilters.disabled = false;
     });
     window.constants.map.classList.remove(`map--faded`);
@@ -28,9 +27,8 @@
   };
 
   // Перевод страницы в активный режим с клавиатуры
-
-  window.constants.mapPinMain.addEventListener(`keydown`, function (evt) {
-    if (evt.key === `Enter`) {
+  window.constants.mapPinMain.addEventListener(`keydown`, (evt) => {
+    if (evt.key === window.constants.NumberOnKeyboard.ENTER) {
       window.networking.load(window.draggingLabel.onSuccess, window.services.errorHandler);
       unlocksFormFields();
     }

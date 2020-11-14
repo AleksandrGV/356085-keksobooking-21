@@ -1,12 +1,12 @@
 'use strict';
 
-(function () {
+(() => {
 
   window.serverDatasets = [];
 
   // Получение данных с сервера
 
-  const request = function (method, url, onSuccess, onError) {
+  const request = (method, url, onSuccess, onError) => {
 
     // Проверка если данные с сервера получены выходим из функции
 
@@ -18,7 +18,7 @@
 
     xhr.responseType = `json`;
 
-    xhr.addEventListener(`load`, function () {
+    xhr.addEventListener(`load`, () => {
 
       let error;
 
@@ -47,11 +47,11 @@
       }
     });
 
-    xhr.addEventListener(`error`, function () {
+    xhr.addEventListener(`error`, () => {
       onError(`Ошибка соединения, проверьте подключение к сети!`);
     });
 
-    xhr.addEventListener(`timeout`, function () {
+    xhr.addEventListener(`timeout`, () => {
       onError(`Длительное выполнение запроса ` + xhr.timeout + ` мс`);
     });
 
@@ -62,11 +62,11 @@
     xhr.send();
   };
 
-  const load = function (onSuccess, onError) {
+  const load = (onSuccess, onError) => {
     request(window.constants.RequestMethod.GET, window.constants.RequestUrl.URL_LOAD, onSuccess, onError);
   };
 
-  const send = function (onSuccess, onError) {
+  const send = (onSuccess, onError) => {
     request(window.constants.RequestMethod.POST, window.constants.RequestUrl.URL_SEND, onSuccess, onError);
   };
 

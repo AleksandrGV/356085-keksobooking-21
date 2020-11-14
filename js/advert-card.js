@@ -3,19 +3,19 @@
 // advert-card.js
 // Функция отрисовки карточки объявления
 
-(function () {
-
-  const updateFeatures = function (popup, cardData) {
+(() => {
+  const updateFeatures = (popup, cardData) => {
+    const ONE = 1;
     const currentOfferFeatures = popup.querySelectorAll(`.popup__feature`);
     currentOfferFeatures.forEach((feature) => {
-      const featureName = feature.className.slice(feature.className.lastIndexOf(`-`) + 1, feature.className.length);
+      const featureName = feature.className.slice(feature.className.lastIndexOf(`-`) + ONE, feature.className.length);
       if (!cardData.offer.features.includes(featureName)) {
         feature.remove();
       }
     });
   };
 
-  const cloneCreateCard = function (cardNew) {
+  const cloneCreate = (cardNew) => {
 
     const cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card`);
 
@@ -24,7 +24,6 @@
     const cloneCardTemplate = cardTemplate.cloneNode(true);
 
     // Короткая запись
-
     cloneCardTemplate.querySelector(`.popup__avatar`).setAttribute(`src`, `${cardNew.author.avatar}`);
     cloneCardTemplate.querySelector(`.popup__title`).textContent = cardNew.offer.title;
     cloneCardTemplate.querySelector(`.popup__text--address`).textContent = `${cardNew.offer.address}`;
@@ -39,25 +38,24 @@
 
     const containerCardPhotos = cloneCardTemplate.querySelector(`.popup__photos`);
 
-    const homePhotoCard = window.clonedPhotos.getCreateHomePhoto(containerCardPhotos, cardNew.offer.photos);
+    const homePhotoCard = window.clonedPhotos.getCreateHome(containerCardPhotos, cardNew.offer.photos);
 
     containerCardPhotos.replaceChild(homePhotoCard, containerCardPhotos.querySelector(`.popup__photo`));
 
     cloneTemplateElementCard.appendChild(cloneCardTemplate);
 
     // Вставляю карточку перед mapFilterContaine
-
     window.constants.map.insertBefore(cloneTemplateElementCard, window.constants.mapFilterContainer);
   };
 
-  const writeDownAddress = function (addressX, addressY) {
+  const writeDownAddress = (addressX, addressY) => {
     window.constants.inputAddress.value = (`${addressX}, ${addressY}`);
   };
 
   writeDownAddress(window.constants.mapPinMain.offsetLeft, window.constants.mapPinMain.offsetTop);
 
   window.advertCard = {
-    cloneCreateCard,
+    cloneCreate,
     writeDownAddress
   };
 
