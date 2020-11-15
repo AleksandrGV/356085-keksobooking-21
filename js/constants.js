@@ -36,6 +36,11 @@
       DATA_NOT_FOUND: 404
     },
 
+    RangeElements: {
+      MIN: 0,
+      MAX: 5
+    },
+
     mapFilterContainer: document.querySelector(`.map__filters-container`),
     map: document.querySelector(`.map`),
     mapPins: document.querySelector(`.map__pins`),

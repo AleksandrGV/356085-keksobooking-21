@@ -3,6 +3,7 @@
 // Перетаскивание метки
 
 (() => {
+
   let onMouseMove;
   let onMouseUp;
 
@@ -14,13 +15,15 @@
   };
 
   const onSuccess = (data) => {
-    const activePin = data.slice(0, 5);
+    const activePin = data.slice(window.constants.RangeElements.MIN, window.constants.RangeElements.MAX);
     window.pin.cloneRendering(activePin);
   };
 
   window.constants.mapPinMain.addEventListener(`mousedown`, (evt) => {
     evt.preventDefault();
-
+    if (evt.button !== window.constants.MOUSE_BUTTON_NUMBER) {
+      return;
+    }
     // Находим начальные координаты
 
     let startCoordinates = {
@@ -58,11 +61,10 @@
 
     onMouseUp = (upEvt) => {
       upEvt.preventDefault();
-      if (evt.button === 0) {
-        window.networking.load(onSuccess, window.services.errorHandler);
-        window.pageState.unlocksFormFields();
-        window.advertCard.writeDownAddress(evt.x, evt.y);
-      }
+      window.networking.load(onSuccess, window.services.errorHandler);
+      window.pageState.unlocksFormFields();
+      window.advertCard.writeDownAddress(evt.x, evt.y);
+
 
       document.removeEventListener(`mousemove`, onMouseMove);
       document.removeEventListener(`mouseup`, onMouseUp);
