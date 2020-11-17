@@ -4,8 +4,10 @@
 // Функция отрисовки карточки объявления
 
 (() => {
+
+  const ONE = 1;
+
   const updateFeatures = (popup, cardData) => {
-    const ONE = 1;
     const currentOfferFeatures = popup.querySelectorAll(`.popup__feature`);
     currentOfferFeatures.forEach((feature) => {
       const featureName = feature.className.slice(feature.className.lastIndexOf(`-`) + ONE, feature.className.length);

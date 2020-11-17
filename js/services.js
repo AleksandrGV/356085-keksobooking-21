@@ -25,9 +25,10 @@
 
   const removePreviusPins = () => {
     const previusPins = window.constants.mapPins.querySelectorAll(`.map__pin:not(.map__pin--main)`);
-
-    for (const prevPin of previusPins) {
-      prevPin.remove();
+    if (previusPins) {
+      for (const prevPin of previusPins) {
+        prevPin.remove();
+      }
     }
   };
 

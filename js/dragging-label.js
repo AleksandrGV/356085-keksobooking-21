@@ -4,15 +4,20 @@
 
 (() => {
 
-  let onMouseMove;
-  let onMouseUp;
+  const BoundingFieldHeight = {
+    MIN_HEIHGHT: 130,
+    MAX_HEIGHT: 630
+  };
 
   const limitField = {
-    top: window.constants.mapPins.offsetTop,
+    top: window.constants.mapPins.offsetTop + BoundingFieldHeight.MIN_HEIHGHT,
     left: window.constants.mapPins.offsetLeft,
-    bottom: window.constants.mapPins.offsetTop + window.constants.mapPins.offsetHeight - window.constants.mapPinMain.offsetHeight,
+    bottom: window.constants.mapPins.offsetTop + BoundingFieldHeight.MAX_HEIGHT,
     right: window.constants.mapPins.offsetLeft + window.constants.mapPins.offsetWidth - window.constants.mapPinMain.offsetWidth
   };
+
+  let onMouseMove;
+  let onMouseUp;
 
   const onSuccess = (data) => {
     const activePin = data.slice(window.constants.RangeElements.MIN, window.constants.RangeElements.MAX);

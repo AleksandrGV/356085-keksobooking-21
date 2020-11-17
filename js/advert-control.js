@@ -4,19 +4,27 @@
 // Открытие карточки через делегирование (всплытие)
 
 (() => {
+
   const onOpenCard = (openCard) => {
-    const mapPin = openCard.target.closest(`.map__pin`);
+    window.mapPin = openCard.target.closest(`.map__pin`);
     closeCard();
-    if (mapPin) {
-      const indexPinClone = mapPin.dataset.indexPin;
+    if (window.mapPin) {
+      const indexPinClone = window.mapPin.dataset.indexPin;
       if (indexPinClone) {
         const currentPins = window.filtersPins.length ? window.filtersPins : window.serverDatasets;
         window.advertCard.cloneCreate(currentPins[indexPinClone]);
+        document.querySelector(`#pin`).addEventListener(`click`, () => {
+          console.log(window.mapPin.classList.add(`.map__pin--active`));
+        });
         document.addEventListener(`keydown`, onPopupClose);
         document.querySelector(`.popup__close`).addEventListener(`click`, onPopupClose);
+        //   window.constants.pinTemplate.classList.add(`map__pin--active`);
+        // });
       }
+      document.removeEventListener(`keydown`, onPopupClose);
     }
   };
+
 
   const onPopupClose = (evt) => {
     if (evt.key === window.constants.NumberOnKeyboard.ESCAPE || evt.button === window.constants.MOUSE_BUTTON_NUMBER) {
@@ -45,6 +53,7 @@
   });
 
   window.advertControl = {
-    onOpenCard
+    onOpenCard,
+    closeCard,
   };
 })();

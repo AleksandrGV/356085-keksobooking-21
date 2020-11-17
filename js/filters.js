@@ -5,6 +5,7 @@
 (() => {
 
   const ANY_TYPE = `any`;
+  const NUMBER_VISIBLE_PINS = 5;
 
   const HousingFiltration = {
     TYPE: `housing-type`,
@@ -74,7 +75,7 @@
 
   const getPriceRange = (price) => {
     switch (true) {
-      case price < PriceRange.LOW: {
+      case price < PriceRange.MIN: {
         return PriceOption.LOW;
       }
       case price >= PriceRange.MIN && price <= PriceRange.MAX: {
@@ -108,7 +109,7 @@
     const filtration = getFiltrationValues();
 
     for (let i = 0; i < window.serverDatasets.length; i++) {
-      if (window.filtersPins.length === 5) {
+      if (window.filtersPins.length === NUMBER_VISIBLE_PINS) {
         break;
       }
       const currentPinData = window.serverDatasets[i];
@@ -118,6 +119,7 @@
       }
     }
     window.services.removePreviusPins();
+    window.advertControl.closeCard();
     window.pin.cloneRendering(window.filtersPins);
   });
 

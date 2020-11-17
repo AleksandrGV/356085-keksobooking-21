@@ -5,6 +5,8 @@
 
 (() => {
   const blocksForm = () => {
+    window.constants.map.classList.add(`map--faded`);
+    window.constants.adForm.classList.add(`ad-form--disabled`);
     window.constants.adFormFieldsets.forEach((formFieldset) => {
       formFieldset.setAttribute(`disabled`, `disabled`);
     });

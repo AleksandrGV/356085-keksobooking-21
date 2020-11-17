@@ -59,6 +59,47 @@ const comparisonCheckInCheckOutTimes = () => {
   }
 };
 
+const placeholderValue = () => {
+  // console.log(window.constants.validationType.value);
+  // for (let i = 0; window.constants.validationType.length; i++) {
+  //   console.log(window.constants.validationType += i);
+  // }
+  switch (true) {
+    case window.constants.validationType.value === TypeValidation.BUNGALOW: {
+      window.constants.validationPrice.placeholder = PriceValidation.MIN_BUNGALOW;
+      break;
+    }
+    case window.constants.validationType.value === TypeValidation.FLAT: {
+      window.constants.validationPrice.placeholder = PriceValidation.MIN_FLAT;
+      break;
+    }
+    case window.constants.validationType.value === TypeValidation.HOUSE: {
+      window.constants.validationPrice.placeholder = PriceValidation.MIN_HOUSE;
+      break;
+    }
+    case window.constants.validationType.value === TypeValidation.PALACE: {
+      window.constants.validationPrice.placeholder = PriceValidation.MIN_PALACE;
+      break;
+    }
+    default: {
+      window.constants.validationPrice.placeholder = PriceValidation.MIN_HOUSE;
+    }
+  }
+  // if (window.constants.validationType.value === TypeValidation.BUNGALOW) {
+  //   window.constants.validationPrice.placeholder = PriceValidation.MIN_BUNGALOW;
+  // } else if (window.constants.validationType.value === TypeValidation.FLAT) {
+  //   window.constants.validationPrice.placeholder = PriceValidation.MIN_FLAT;
+  // } else if (window.constants.validationType.value === TypeValidation.HOUSE) {
+  //   window.constants.validationPrice.placeholder = PriceValidation.MIN_HOUSE;
+  // } else if (window.constants.validationType.value === TypeValidation.PALACE) {
+  //   window.constants.validationPrice.placeholder = PriceValidation.MIN_PALACE;
+  // } else {
+  //   window.constants.validationPrice.placeholder = PriceValidation.MIN_HOUSE;
+  // }
+};
+
+placeholderValue();
+
 // Обработчик событий для проверки валидации
 
 window.constants.adFormSubmit.addEventListener(`click`, () => {

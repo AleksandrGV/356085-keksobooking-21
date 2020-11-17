@@ -55,7 +55,7 @@
       onError(`Длительное выполнение запроса ` + xhr.timeout + ` мс`);
     });
 
-    xhr.timeout = window.constants.xhrTimeout;
+    xhr.timeout = window.constants.XHR_TIMEOUT;
 
     xhr.open(method, url);
 

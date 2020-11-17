@@ -6,6 +6,8 @@
 (() => {
 
   window.constants = {
+
+    XHR_TIMEOUT: 10000,
     MOUSE_BUTTON_NUMBER: 0,
     DEBOUNCE_INTERVAL: 500,
 
@@ -46,6 +48,7 @@
     mapPins: document.querySelector(`.map__pins`),
     adForm: document.querySelector(`.ad-form`),
     adFormFieldsets: document.querySelectorAll(`fieldset`),
+    mapFilters: document.querySelector(`.map__filters`),
     formMapFilters: document.querySelectorAll(`.map__filter`),
     inputAddress: document.querySelector(`#address`),
     mapPinMain: document.querySelector(`.map__pin--main`),
@@ -58,6 +61,5 @@
     validationTimeIn: document.querySelector(`#timein`),
     validationTimeOut: document.querySelector(`#timeout`),
 
-    xhrTimeout: 10000,
   };
 })();
