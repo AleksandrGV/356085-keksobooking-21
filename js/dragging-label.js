@@ -5,14 +5,14 @@
 (() => {
 
   const BoundingFieldHeight = {
-    MIN_HEIHGHT: 130,
-    MAX_HEIGHT: 630
+    MIN: 130,
+    MAX: 630
   };
 
   const limitField = {
-    top: window.constants.mapPins.offsetTop + BoundingFieldHeight.MIN_HEIHGHT,
+    top: window.constants.mapPins.offsetTop + BoundingFieldHeight.MIN,
     left: window.constants.mapPins.offsetLeft,
-    bottom: window.constants.mapPins.offsetTop + BoundingFieldHeight.MAX_HEIGHT,
+    bottom: window.constants.mapPins.offsetTop + BoundingFieldHeight.MAX,
     right: window.constants.mapPins.offsetLeft + window.constants.mapPins.offsetWidth - window.constants.mapPinMain.offsetWidth
   };
 
@@ -54,13 +54,20 @@
       };
 
       if (moveEvt.target.closest(`.map__pins`)) {
-        if (window.constants.mapPinMain.offsetTop - shift.y >= limitField.top && window.constants.mapPinMain.offsetTop - shift.y <= limitField.bottom) {
-          window.constants.mapPinMain.style.top = (window.constants.mapPinMain.offsetTop - shift.y) + `px`;
+
+        const vertical = window.constants.mapPinMain.offsetTop - shift.y;
+        const horizontal = window.constants.mapPinMain.offsetLeft - shift.x;
+
+        if (vertical >= limitField.top && vertical <= limitField.bottom) {
+          window.constants.mapPinMain.style.top = `${vertical}` + `px`;
         }
 
-        if (window.constants.mapPinMain.offsetLeft - shift.x >= limitField.left && window.constants.mapPinMain.offsetLeft - shift.x <= limitField.right) {
-          window.constants.mapPinMain.style.left = (window.constants.mapPinMain.offsetLeft - shift.x) + `px`;
+        if (horizontal >= limitField.left && horizontal <= limitField.right) {
+          window.constants.mapPinMain.style.left = `${horizontal}` + `px`;
         }
+        window.advertCard.writeDownAddress(horizontal, vertical);
+      } else {
+        onMouseUp(evt);
       }
     };
 
@@ -68,8 +75,6 @@
       upEvt.preventDefault();
       window.networking.load(onSuccess, window.services.errorHandler);
       window.pageState.unlocksFormFields();
-      window.advertCard.writeDownAddress(evt.x, evt.y);
-
 
       document.removeEventListener(`mousemove`, onMouseMove);
       document.removeEventListener(`mouseup`, onMouseUp);

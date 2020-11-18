@@ -4,6 +4,7 @@
 // Функция получение случайного целого числа в заданном интервале, включительно
 
 (() => {
+
   const getRandomNumbers = (min, max) => {
     min = Math.ceil(min);
     max = Math.floor(max);

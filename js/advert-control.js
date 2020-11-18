@@ -5,21 +5,28 @@
 
 (() => {
 
+  const updatePinClasses = (activePin) => {
+    const activeClass = `map__pin--active`;
+    const previusActivePin = window.constants.map.querySelector(`.${activeClass}`);
+
+    if (previusActivePin) {
+      previusActivePin.classList.remove(activeClass);
+    }
+    activePin.classList.add(activeClass);
+  };
+
   const onOpenCard = (openCard) => {
-    window.mapPin = openCard.target.closest(`.map__pin`);
+    const currentPin = openCard.target.closest(`.map__pin:not(.map__pin--main)`);
     closeCard();
-    if (window.mapPin) {
-      const indexPinClone = window.mapPin.dataset.indexPin;
+    if (currentPin) {
+      const indexPinClone = currentPin.dataset.indexPin;
       if (indexPinClone) {
+        updatePinClasses(currentPin);
         const currentPins = window.filtersPins.length ? window.filtersPins : window.serverDatasets;
         window.advertCard.cloneCreate(currentPins[indexPinClone]);
-        document.querySelector(`#pin`).addEventListener(`click`, () => {
-          console.log(window.mapPin.classList.add(`.map__pin--active`));
-        });
+
         document.addEventListener(`keydown`, onPopupClose);
         document.querySelector(`.popup__close`).addEventListener(`click`, onPopupClose);
-        //   window.constants.pinTemplate.classList.add(`map__pin--active`);
-        // });
       }
       document.removeEventListener(`keydown`, onPopupClose);
     }

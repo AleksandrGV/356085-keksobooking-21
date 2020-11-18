@@ -8,10 +8,8 @@
 
   const request = (method, url, onSuccess, onError) => {
 
-    // Проверка если данные с сервера получены выходим из функции
-
-    if (window.serverDatasets.length) {
-      return;
+    if (window.serverDatasets.length && document.querySelector(`.map--faded`)) {
+      onSuccess(window.serverDatasets);
     }
 
     const xhr = new XMLHttpRequest();
