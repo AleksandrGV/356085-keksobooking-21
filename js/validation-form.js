@@ -2,18 +2,11 @@
 
 // validation-form.js
 
-const TypeValidation = {
-  BUNGALOW: `bungalow`,
-  FLAT: `flat`,
-  HOUSE: `house`,
-  PALACE: `palace`
-};
-
 const PriceValidation = {
-  MIN_BUNGALOW: 0,
-  MIN_FLAT: 1000,
-  MIN_HOUSE: 5000,
-  MIN_PALACE: 10000
+  BUNGALOW: 0,
+  FLAT: 1000,
+  HOUSE: 5000,
+  PALACE: 10000
 };
 
 const ValidationValue = {
@@ -24,65 +17,87 @@ const ValidationValue = {
   ONE_HUNDRED: `100`
 };
 
-// Валидация полей формы
+const FieldElements = {
+  ROOM_NUMBER: window.constants.adForm.querySelector(`#room_number`),
+  CAPACITY: window.constants.adForm.querySelector(`#capacity`),
+  HOUSE_TYPE: window.constants.adForm.querySelector(`#type`),
+  PRICE: window.constants.adForm.querySelector(`#price`),
+  TIME_IN: window.constants.adForm.querySelector(`#timein`),
+  TIME_OUT: window.constants.adForm.querySelector(`#timeout`),
+};
+
+const checkValidityForm = () => {
+  return Object.values(FieldElements).every((field) => {
+    const isValid = field.checkValidity();
+    field.style.boxShadow = isValid ? ` ` : `0 0 20px red`;
+    return isValid;
+  });
+};
+
+// Валидация по типу жилья и цены
+
+const validateHousingType = () => {
+
+  FieldElements.PRICE.placeholder = PriceValidation[FieldElements.HOUSE_TYPE.value.toUpperCase()];
+  FieldElements.PRICE.setAttribute(`min`, PriceValidation[FieldElements.HOUSE_TYPE.value.toUpperCase()]);
+
+  if (!FieldElements.HOUSE_TYPE.value) {
+    FieldElements.PRICE.placeholder = PriceValidation.FLAT;
+  }
+};
+
+// Фильтрация комнат и гостей
 
 const checksAdTitleConditions = () => {
-  if (window.constants.roomNumber.value === ValidationValue.ONE_HUNDRED && window.constants.capacity.value !== ValidationValue.ZERO) {
-    window.constants.capacity.setCustomValidity(`Комнаты не для гостей`);
-  } else if (window.constants.roomNumber.value === ValidationValue.THREE && window.constants.capacity.value === ValidationValue.ZERO) {
-    window.constants.capacity.setCustomValidity(`В комнатах можно разместить 1, 2 или 3 гостей`);
-  } else if (window.constants.roomNumber.value === ValidationValue.TWO && (window.constants.capacity.value === ValidationValue.ZERO || window.constants.capacity.value === ValidationValue.THREE)) {
-    window.constants.capacity.setCustomValidity(`В 2 комнатах можно разместить 1 или 2 гостей`);
-  } else if (window.constants.roomNumber.value === ValidationValue.ONE && window.constants.capacity.value !== ValidationValue.ONE) {
-    window.constants.capacity.setCustomValidity(`Одна комната только для одного гостя`);
+  if (FieldElements.ROOM_NUMBER.value === ValidationValue.ONE_HUNDRED && FieldElements.CAPACITY.value !== ValidationValue.ZERO) {
+    FieldElements.CAPACITY.setCustomValidity(`Комнаты не для гостей`);
+  } else if (FieldElements.ROOM_NUMBER.value === ValidationValue.THREE && FieldElements.CAPACITY.value === ValidationValue.ZERO) {
+    FieldElements.CAPACITY.setCustomValidity(`В комнатах можно разместить 1, 2 или 3 гостей`);
+  } else if (FieldElements.ROOM_NUMBER.value === ValidationValue.TWO && (FieldElements.CAPACITY.value === ValidationValue.ZERO || FieldElements.CAPACITY.value === ValidationValue.THREE)) {
+    FieldElements.CAPACITY.setCustomValidity(`В 2 комнатах можно разместить 1 или 2 гостей`);
+  } else if (FieldElements.ROOM_NUMBER.value === ValidationValue.ONE && FieldElements.CAPACITY.value !== ValidationValue.ONE) {
+    FieldElements.CAPACITY.setCustomValidity(`Одна комната только для одного гостя`);
   } else {
-    window.constants.capacity.setCustomValidity(``);
+    FieldElements.CAPACITY.setCustomValidity(``);
   }
 };
-
-// Валидация полей карточки
-// Проверка типа жилья с мин. стоимостью
-
-const сostTypicalHousing = () => {
-  if (window.constants.validationType.value === TypeValidation.BUNGALOW && !window.constants.validationPrice.value > PriceValidation.MIN_BUNGALOW) {
-    window.constants.validationType.setCustomValidity(`Минимальная стоимость аренды бунгало 0 рублей, введите 0 или больше.`);
-    window.constants.validationPrice.placeholder = PriceValidation.MIN_BUNGALOW;
-  } else if (window.constants.validationType.value === TypeValidation.FLAT && window.constants.validationPrice.value < PriceValidation.MIN_FLAT) {
-    window.constants.validationType.setCustomValidity(`Минимальная стоимость аренды квартир 1000 рублей`);
-    window.constants.validationPrice.placeholder = PriceValidation.MIN_FLAT;
-  } else if (window.constants.validationType.value === TypeValidation.HOUSE && window.constants.validationPrice.value < PriceValidation.MIN_HOUSE) {
-    window.constants.validationType.setCustomValidity(`Минимальная стоимость аренды домов 5000 рублей`);
-    window.constants.validationPrice.placeholder = PriceValidation.MIN_HOUSE;
-  } else if (window.constants.validationType.value === TypeValidation.PALACE && window.constants.validationPrice.value < PriceValidation.MIN_PALACE) {
-    window.constants.validationType.setCustomValidity(`Минимальная стоимость аренды дворцов 10000 рублей`);
-    window.constants.validationPrice.placeholder = PriceValidation.MIN_PALACE;
-  } else if (!window.constants.validationType.value) {
-    window.constants.validationPrice.placeholder = PriceValidation.MIN_HOUSE;
-  } else {
-    window.constants.validationType.setCustomValidity(``);
-  }
-};
-
-window.constants.validationType.addEventListener(`click`, () => {
-  сostTypicalHousing();
-});
 
 // Проверка соответствия времени вьезда и выезда
 
 const comparisonCheckInCheckOutTimes = () => {
-  if (window.constants.validationTimeIn.value > window.constants.validationTimeOut.value) {
-    window.constants.validationTimeIn.setCustomValidity(`Время заезда не соответствует времени выезда`);
-  } else if (window.constants.validationTimeIn.value < window.constants.validationTimeOut.value) {
-    window.constants.validationTimeIn.setCustomValidity(`Время заезда не должно быть меньше времени выезда`);
+  if (FieldElements.TIME_IN.value > FieldElements.TIME_OUT.value) {
+    FieldElements.TIME_IN.setCustomValidity(`Время заезда не соответствует времени выезда`);
+  } else if (FieldElements.TIME_IN.value < FieldElements.TIME_OUT.value) {
+    FieldElements.TIME_IN.setCustomValidity(`Время заезда не должно быть меньше времени выезда`);
   } else {
-    window.constants.validationTimeIn.setCustomValidity(``);
+    FieldElements.TIME_IN.setCustomValidity(``);
   }
 };
 
 // Обработчик событий для проверки валидации
 
-window.constants.adFormSubmit.addEventListener(`click`, () => {
+window.constants.adForm.addEventListener(`submit`, (evt) => {
+  evt.preventDefault();
+
+  validateHousingType();
   checksAdTitleConditions();
-  сostTypicalHousing();
   comparisonCheckInCheckOutTimes();
+
+  if (checkValidityForm()) {
+    const data = new FormData(evt.target);
+
+    window.networking.send(data, window.message.onSuccess, window.message.onError);
+  }
+
 });
+
+[FieldElements.HOUSE_TYPE, FieldElements.PRICE].forEach((field) => {
+  field.addEventListener(`input`, validateHousingType);
+});
+
+[FieldElements.TIME_IN, FieldElements.TIME_OUT].forEach((field) => {
+  field.addEventListener(`change`, comparisonCheckInCheckOutTimes);
+});
+FieldElements.CAPACITY.addEventListener(`change`, checksAdTitleConditions);
+
+FieldElements.ROOM_NUMBER.addEventListener(`change`, checksAdTitleConditions);

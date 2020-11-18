@@ -25,7 +25,7 @@
     });
     window.constants.map.classList.remove(`map--faded`);
     window.constants.adForm.classList.remove(`ad-form--disabled`);
-    window.constants.inputAddress.setAttribute(`disabled`, `disabled`);
+    window.constants.inputAddress.setAttribute(`readonly`, `readonly`);
   };
 
   // Перевод страницы в активный режим с клавиатуры

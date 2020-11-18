@@ -6,7 +6,7 @@
 
   // Получение данных с сервера
 
-  const request = (method, url, onSuccess, onError) => {
+  const request = (method, url, onSuccess, onError, data = null) => {
 
     if (window.serverDatasets.length && document.querySelector(`.map--faded`)) {
       onSuccess(window.serverDatasets);
@@ -57,15 +57,15 @@
 
     xhr.open(method, url);
 
-    xhr.send();
+    xhr.send(data);
   };
 
   const load = (onSuccess, onError) => {
     request(window.constants.RequestMethod.GET, window.constants.RequestUrl.URL_LOAD, onSuccess, onError);
   };
 
-  const send = (onSuccess, onError) => {
-    request(window.constants.RequestMethod.POST, window.constants.RequestUrl.URL_SEND, onSuccess, onError);
+  const send = (data, onSuccess, onError) => {
+    request(window.constants.RequestMethod.POST, window.constants.RequestUrl.URL_SEND, onSuccess, onError, data);
   };
 
   window.networking = {

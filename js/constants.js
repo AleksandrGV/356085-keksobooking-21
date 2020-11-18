@@ -53,13 +53,5 @@
     inputAddress: document.querySelector(`#address`),
     mapPinMain: document.querySelector(`.map__pin--main`),
 
-    roomNumber: document.querySelector(`#room_number`),
-    capacity: document.querySelector(`#capacity`),
-    adFormSubmit: document.querySelector(`.ad-form__submit`),
-    validationType: document.querySelector(`#type`),
-    validationPrice: document.querySelector(`#price`),
-    validationTimeIn: document.querySelector(`#timein`),
-    validationTimeOut: document.querySelector(`#timeout`),
-
   };
 })();

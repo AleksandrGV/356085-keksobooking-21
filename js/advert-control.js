@@ -32,7 +32,6 @@
     }
   };
 
-
   const onPopupClose = (evt) => {
     if (evt.key === window.constants.NumberOnKeyboard.ESCAPE || evt.button === window.constants.MOUSE_BUTTON_NUMBER) {
       evt.preventDefault();
