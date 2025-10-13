@@ -12,6 +12,10 @@
       onSuccess(window.serverDatasets);
     }
 
+    if (window.serverDatasets.length) {
+      return;
+    }
+
     const xhr = new XMLHttpRequest();
 
     xhr.responseType = `json`;
