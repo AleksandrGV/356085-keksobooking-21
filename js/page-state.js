@@ -1,8 +1,5 @@
 'use strict';
 
-// page-state.js
-// Функция блокировки полей
-
 (() => {
   const blocksForm = () => {
     window.constants.map.classList.add(`map--faded`);
@@ -28,10 +25,15 @@
     window.constants.inputAddress.setAttribute(`readonly`, `readonly`);
   };
 
-  // Перевод страницы в активный режим с клавиатуры
+  // ОБНОВЛЕННЫЙ обработчик ENTER
   window.constants.mapPinMain.addEventListener(`keydown`, (evt) => {
     if (evt.key === window.constants.NumberOnKeyboard.ENTER) {
-      window.networking.load(window.draggingLabel.onSuccess, window.services.errorHandler);
+      window.networking.load((loadedData) => {
+        window.services.removePreviusPins();
+        window.pin.cloneRendering(loadedData);
+      }, (_error) => { // Добавили подчеркивание _error
+        window.services.errorHandler(_error);
+      });
       unlocksFormFields();
     }
   });
@@ -43,3 +45,49 @@
 
   blocksForm();
 })();
+
+// 'use strict';
+// // Код работавший с данными получаемыми с сервера
+// // page-state.js
+// // Функция блокировки полей
+
+// (() => {
+//   const blocksForm = () => {
+//     window.constants.map.classList.add(`map--faded`);
+//     window.constants.adForm.classList.add(`ad-form--disabled`);
+//     window.constants.adFormFieldsets.forEach((formFieldset) => {
+//       formFieldset.setAttribute(`disabled`, `disabled`);
+//     });
+//     window.constants.formMapFilters.forEach((mapFilters) => {
+//       mapFilters.setAttribute(`disabled`, `disabled`);
+//     });
+//   };
+
+//   // Функция разблокировки полей
+//   const unlocksFormFields = () => {
+//     window.constants.adFormFieldsets.forEach((itemFieldset) => {
+//       itemFieldset.disabled = false;
+//     });
+//     window.constants.formMapFilters.forEach((itemFilters) => {
+//       itemFilters.disabled = false;
+//     });
+//     window.constants.map.classList.remove(`map--faded`);
+//     window.constants.adForm.classList.remove(`ad-form--disabled`);
+//     window.constants.inputAddress.setAttribute(`readonly`, `readonly`);
+//   };
+
+//   // Перевод страницы в активный режим с клавиатуры
+//   window.constants.mapPinMain.addEventListener(`keydown`, (evt) => {
+//     if (evt.key === window.constants.NumberOnKeyboard.ENTER) {
+//       window.networking.load(window.draggingLabel.onSuccess, window.services.errorHandler);
+//       unlocksFormFields();
+//     }
+//   });
+
+//   window.pageState = {
+//     blocksForm,
+//     unlocksFormFields
+//   };
+
+//   blocksForm();
+// })();

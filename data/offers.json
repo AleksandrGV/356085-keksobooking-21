@@ -1,0 +1,157 @@
+{
+  "offers": [
+    {
+      "author": { "avatar": "img/avatars/user01.png" },
+      "offer": {
+        "title": "Уютная квартира в центре Токио",
+        "address": "570, 375",
+        "price": 15000,
+        "type": "flat",
+        "rooms": 2,
+        "guests": 4,
+        "checkin": "12:00",
+        "checkout": "14:00",
+        "features": ["wifi", "parking", "elevator"],
+        "description": "Прекрасная квартира в центре города с видом на парк",
+        "photos": ["http://o0.github.io/assets/images/tokyo/hotel1.jpg", "http://o0.github.io/assets/images/tokyo/hotel2.jpg"]
+      },
+      "location": { "x": 570, "y": 375 }
+    },
+    {
+      "author": { "avatar": "img/avatars/user02.png" },
+      "offer": {
+        "title": "Комната в центре Сибуя",
+        "address": "600, 400",
+        "price": 8000,
+        "type": "room",
+        "rooms": 1,
+        "guests": 2,
+        "checkin": "14:00",
+        "checkout": "12:00",
+        "features": ["wifi", "kitchen"],
+        "description": "Уютная комната недалеко от станции Сибуя",
+        "photos": ["http://o0.github.io/assets/images/tokyo/hotel1.jpg"]
+      },
+      "location": { "x": 600, "y": 400 }
+    },
+    {
+      "author": { "avatar": "img/avatars/user03.png" },
+      "offer": {
+        "title": "Современный лофт в Синдзюку",
+        "address": "500, 350",
+        "price": 25000,
+        "type": "house",
+        "rooms": 3,
+        "guests": 6,
+        "checkin": "15:00",
+        "checkout": "11:00",
+        "features": ["wifi", "parking", "dishwasher", "elevator"],
+        "description": "Просторный лофт с высокими потолками",
+        "photos": ["http://o0.github.io/assets/images/tokyo/hotel1.jpg", "http://o0.github.io/assets/images/tokyo/hotel2.jpg"]
+      },
+      "location": { "x": 500, "y": 350 }
+    },
+    {
+      "author": { "avatar": "img/avatars/user04.png" },
+      "offer": {
+        "title": "Бунгало у парка Йойоги",
+        "address": "650, 320",
+        "price": 12000,
+        "type": "bungalow",
+        "rooms": 2,
+        "guests": 4,
+        "checkin": "16:00",
+        "checkout": "10:00",
+        "features": ["wifi", "parking", "conditioner"],
+        "description": "Уютное бунгало с выходом к парку Йойоги",
+        "photos": ["http://o0.github.io/assets/images/tokyo/hotel1.jpg"]
+      },
+      "location": { "x": 650, "y": 320 }
+    },
+    {
+      "author": { "avatar": "img/avatars/user05.png" },
+      "offer": {
+        "title": "Дворец в традиционном стиле",
+        "address": "700, 450",
+        "price": 50000,
+        "type": "palace",
+        "rooms": 1,
+        "guests": 2,
+        "checkin": "12:00",
+        "checkout": "12:00",
+        "features": ["wifi", "conditioner", "dishwasher", "washer", "elevator", "conditioner"],
+        "description": "Роскошный дворец в традиционном японском стиле",
+        "photos": ["http://o0.github.io/assets/images/tokyo/hotel1.jpg", "http://o0.github.io/assets/images/tokyo/hotel2.jpg", "http://o0.github.io/assets/images/tokyo/hotel3.jpg"]
+      },
+      "location": { "x": 700, "y": 450 }
+    },
+    {
+      "author": { "avatar": "img/avatars/user06.png" },
+      "offer": {
+        "title": "Уютная квартира в центре",
+        "address": "400, 300",
+        "price": 50000,
+        "type": "house",
+        "rooms": 5,
+        "guests": 10,
+        "checkin": "12:00",
+        "checkout": "12:00",
+        "features": ["wifi", "dishwasher", "washer", "elevator", "conditioner"],
+        "description": "Квартира в тихом районе города",
+        "photos": ["http://o0.github.io/assets/images/tokyo/hotel1.jpg", "http://o0.github.io/assets/images/tokyo/hotel2.jpg"]
+      },
+      "location": { "x": 400, "y": 300 }
+    },
+    {
+      "author": { "avatar": "img/avatars/user07.png" },
+      "offer": {
+        "title": "Квартира с красивым видом из окна",
+        "address": "600, 200",
+        "price": 50000,
+        "type": "flat",
+        "rooms": 1,
+        "guests": 1,
+        "checkin": "12:00",
+        "checkout": "12:00",
+        "features": ["wifi", "washer", "elevator"],
+        "description": "Квартира с развитой инфроструктурой",
+        "photos": ["http://o0.github.io/assets/images/tokyo/hotel1.jpg", "http://o0.github.io/assets/images/tokyo/hotel2.jpg"]
+      },
+      "location": { "x": 600, "y": 200 }
+    },
+    {
+      "author": { "avatar": "img/avatars/user08.png" },
+      "offer": {
+        "title": "Квартира рядом с метро",
+        "address": "800, 400",
+        "price": 50000,
+        "type": "house",
+        "rooms": 2,
+        "guests": 4,
+        "checkin": "12:00",
+        "checkout": "12:00",
+        "features": ["wifi", "parking", "dishwasher", "washer", "elevator", "conditioner"],
+        "description": "Просторная квартира",
+        "photos": ["http://o0.github.io/assets/images/tokyo/hotel1.jpg", "http://o0.github.io/assets/images/tokyo/hotel2.jpg"]
+      },
+      "location": { "x": 800, "y": 400 }
+    },
+    {
+      "author": { "avatar": "img/avatars/user01.png" },
+      "offer": {
+        "title": "Квартира для демостраций",
+        "address": "900, 310",
+        "price": 50000,
+        "type": "house",
+        "rooms": 1,
+        "guests": 0,
+        "checkin": "12:00",
+        "checkout": "12:00",
+        "features": ["wifi", "elevator", "conditioner"],
+        "description": "Квартира с площадкой для детей",
+        "photos": ["http://o0.github.io/assets/images/tokyo/hotel1.jpg"]
+      },
+      "location": { "x": 900, "y": 310 }
+    }
+  ]
+}
