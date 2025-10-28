@@ -134,12 +134,41 @@
     });
   };
 
+  // НОВАЯ ФУНКЦИЯ: Сброс всех фильтров к значениям по умолчанию
+  const resetAllFilters = () => {
+    // console.log('Сбрасываем все фильтры к значениям по умолчанию');
+
+    // Сбрасываем селекты к значению "any"
+    const filterSelects = window.constants.mapFilters.querySelectorAll(`select`);
+    filterSelects.forEach((select) => {
+      select.value = `any`;
+    });
+
+    // Сбрасываем чекбоксы
+    const filterCheckboxes = window.constants.mapFilters.querySelectorAll(`input[type="checkbox"]`);
+    filterCheckboxes.forEach((checkbox) => {
+      checkbox.checked = false;
+    });
+
+    // Сбрасываем поле features
+    if (window.filters) {
+      window.filters.selectedFeatures = [];
+      // Обновляем отображение features если есть такая функция
+      if (typeof window.filters.updateFeaturesDisplay === `function`) {
+        window.filters.updateFeaturesDisplay();
+      }
+    }
+
+    // console.log('Все фильтры сброшены');
+  };
+
   window.constants.mapFilterContainer.addEventListener(`change`, onFilterChange);
 
   window.filters = {
     applyFilters,
     applyFiltersToData,
-    getFiltrationValues
+    getFiltrationValues,
+    resetAllFilters
   };
 
 })();

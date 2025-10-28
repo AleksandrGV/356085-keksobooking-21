@@ -1,7 +1,7 @@
 {
   "offers": [
     {
-      "author": { "avatar": "img/avatars/user01.png" },
+      "author": { "avatar": "/img/avatars/user01.png" },
       "offer": {
         "title": "Уютная квартира в центре Токио",
         "address": "570, 375",
@@ -18,7 +18,7 @@
       "location": { "x": 570, "y": 375 }
     },
     {
-      "author": { "avatar": "img/avatars/user02.png" },
+      "author": { "avatar": "/img/avatars/user02.png" },
       "offer": {
         "title": "Комната в центре Сибуя",
         "address": "600, 400",
@@ -35,7 +35,7 @@
       "location": { "x": 600, "y": 400 }
     },
     {
-      "author": { "avatar": "img/avatars/user03.png" },
+      "author": { "avatar": "/img/avatars/user03.png" },
       "offer": {
         "title": "Современный лофт в Синдзюку",
         "address": "500, 350",
@@ -52,7 +52,7 @@
       "location": { "x": 500, "y": 350 }
     },
     {
-      "author": { "avatar": "img/avatars/user04.png" },
+      "author": { "avatar": "/img/avatars/user04.png" },
       "offer": {
         "title": "Бунгало у парка Йойоги",
         "address": "650, 320",
@@ -63,13 +63,13 @@
         "checkin": "16:00",
         "checkout": "10:00",
         "features": ["wifi", "parking", "conditioner"],
-        "description": "Уютное бунгало с выходом к парку Йойоги",
+        "description": "Уютное бунгало с выходом к парку Йоги",
         "photos": ["http://o0.github.io/assets/images/tokyo/hotel1.jpg"]
       },
       "location": { "x": 650, "y": 320 }
     },
     {
-      "author": { "avatar": "img/avatars/user05.png" },
+      "author": { "avatar": "/img/avatars/user05.png" },
       "offer": {
         "title": "Дворец в традиционном стиле",
         "address": "700, 450",
@@ -86,7 +86,7 @@
       "location": { "x": 700, "y": 450 }
     },
     {
-      "author": { "avatar": "img/avatars/user06.png" },
+      "author": { "avatar": "/img/avatars/user06.png" },
       "offer": {
         "title": "Уютная квартира в центре",
         "address": "400, 300",
@@ -103,7 +103,7 @@
       "location": { "x": 400, "y": 300 }
     },
     {
-      "author": { "avatar": "img/avatars/user07.png" },
+      "author": { "avatar": "/img/avatars/user07.png" },
       "offer": {
         "title": "Квартира с красивым видом из окна",
         "address": "600, 200",
@@ -120,7 +120,7 @@
       "location": { "x": 600, "y": 200 }
     },
     {
-      "author": { "avatar": "img/avatars/user08.png" },
+      "author": { "avatar": "/img/avatars/user08.png" },
       "offer": {
         "title": "Квартира рядом с метро",
         "address": "800, 400",
@@ -137,7 +137,7 @@
       "location": { "x": 800, "y": 400 }
     },
     {
-      "author": { "avatar": "img/avatars/user01.png" },
+      "author": { "avatar": "/img/avatars/user01.png" },
       "offer": {
         "title": "Квартира для демостраций",
         "address": "900, 310",

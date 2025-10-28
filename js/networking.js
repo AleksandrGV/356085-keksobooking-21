@@ -1,7 +1,6 @@
 'use strict';
-
+// networking.js
 (() => {
-
   // Глобальные переменные для хранения данных
   window.allOffers = []; // ВСЕ объявления из JSON
   window.filteredOffers = []; // Отфильтрованные для отображения
@@ -39,6 +38,42 @@
     return window.filteredOffers;
   };
 
+  // НОВАЯ ФУНКЦИЯ: Поиск объявления по аватару
+  const findOfferByAvatar = (avatar) => {
+    if (!window.allOffers || window.allOffers.length === 0) {
+      // console.warn('Данные объявлений еще не загружены');
+      return null;
+    }
+
+    const foundOffer = window.allOffers.find((offer) =>
+      offer.author.avatar === avatar
+    );
+
+    // if (!foundOffer) {
+    // console.warn('Объявление не найдено для аватара:', avatar);
+    // }
+
+    return foundOffer || null;
+  };
+
+  // НОВАЯ ФУНКЦИЯ: Получение объявления по индексу
+  const getOfferByIndex = (index) => {
+    if (!window.allOffers || window.allOffers.length === 0) {
+      return null;
+    }
+    return window.allOffers[index] || null;
+  };
+
+  // НОВАЯ ФУНКЦИЯ: Получение всех данных (для совместимости)
+  const getOffersData = () => {
+    return {offers: window.allOffers};
+  };
+
+  // НОВАЯ ФУНКЦИЯ: Проверка загрузки данных
+  const isDataLoaded = () => {
+    return window.allOffers.length > 0;
+  };
+
   // Загрузка данных из JSON файла
   const loadFromJSON = (onSuccess, onError) => {
     const xhr = new XMLHttpRequest();
@@ -49,6 +84,7 @@
         const data = xhr.response;
         if (data && data.offers && data.offers.length > 0) {
           window.allOffers = data.offers; // Сохраняем ВСЕ данные
+          // console.log('Загружено объявлений:', window.allOffers.length);
 
           // Получаем позицию главного пина
           const mainPin = document.querySelector(`.map__pin--main`);
@@ -62,26 +98,34 @@
             onSuccess(window.filteredOffers);
           }
         } else {
+          const errorMsg = `Нет данных в JSON файле`;
+          // console.error(errorMsg);
           if (onError) {
-            onError(`Нет данных в JSON файле`);
+            onError(errorMsg);
           }
         }
       } else {
+        const errorMsg = `Ошибка загрузки JSON: ` + xhr.status;
+        // console.error(errorMsg);
         if (onError) {
-          onError(`Ошибка загрузки JSON: ` + xhr.status);
+          onError(errorMsg);
         }
       }
     });
 
     xhr.addEventListener(`error`, () => {
+      const errorMsg = `Ошибка сети при загрузке JSON`;
+      // console.error(errorMsg);
       if (onError) {
-        onError(`Ошибка сети при загрузке JSON`);
+        onError(errorMsg);
       }
     });
 
     xhr.addEventListener(`timeout`, () => {
+      const errorMsg = `Таймаут загрузки JSON`;
+      // console.error(errorMsg);
       if (onError) {
-        onError(`Таймаут загрузки JSON`);
+        onError(errorMsg);
       }
     });
 
@@ -96,7 +140,39 @@
   };
 
   // Функция обновления объявлений при перемещении пина
+  // const updateOffersByPinPosition = (mainPinX, mainPinY, onSuccess) => {
+  //   if (window.allOffers.length === 0) {
+  //     // Если данные еще не загружены, загружаем их
+  //     load((_data) => {
+  //       // После загрузки фильтруем по новому положению
+  //       window.filteredOffers = filterOffersByLocation(window.allOffers, mainPinX, mainPinY);
+  //       if (onSuccess) {
+  //         onSuccess(window.filteredOffers);
+  //       }
+  //     }, (error) => {
+  //       safeLog.error(`Ошибка загрузки данных`, error);
+  //     });
+  //   } else {
+  //     // Фильтруем существующие данные по новому положению
+  //     window.filteredOffers = filterOffersByLocation(window.allOffers, mainPinX, mainPinY);
+  //     if (onSuccess) {
+  //       onSuccess(window.filteredOffers);
+  //     }
+  //   }
+  // };
+
+  // Функция обновления объявлений при перемещении пина
   const updateOffersByPinPosition = (mainPinX, mainPinY, onSuccess) => {
+    // console.log(`Обновляем объявления для координат:`, mainPinX, mainPinY);
+
+    // СБРАСЫВАЕМ ФИЛЬТРЫ ПЕРЕД ОБНОВЛЕНИЕМ ДАННЫХ
+    if (window.filters && typeof window.filters.resetAllFilters === `function`) {
+      window.filters.resetAllFilters();
+    }
+    // else {
+    //   console.warn('Функция сброса фильтров не доступна');
+    // }
+
     if (window.allOffers.length === 0) {
       // Если данные еще не загружены, загружаем их
       load((_data) => {
@@ -118,7 +194,7 @@
   };
 
   // Функция отправки формы (заглушка для локальной работы)
-  const send = (formData, onSuccess, onError) => { // Переименовали data в formData
+  const send = (formData, onSuccess, onError) => {
     try {
       // Симулируем отправку на сервер
       // formData используется для проверки валидности
@@ -144,10 +220,16 @@
     getAllOffers,
     getFilteredOffers,
     updateOffersByPinPosition,
-    filterOffersByLocation
+    filterOffersByLocation,
+    // НОВЫЕ ФУНКЦИИ ДЛЯ РАБОТЫ С КАРТОЧКАМИ
+    findOfferByAvatar,
+    getOfferByIndex,
+    getOffersData,
+    isDataLoaded
   };
 
 })();
+
 
 // Первоначальный вариант когда данные получаем с сервера
 // 'use strict';
