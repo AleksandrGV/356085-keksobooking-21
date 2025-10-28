@@ -1,0 +1,146 @@
+/* Стили для мобильных устройств и сенсорных экранов */
+
+/* Базовые стили для тач-устройств */
+.touch-device .map__pin {
+  cursor: pointer;
+}
+
+.touch-device .map__pin:hover {
+  transform: none; /* Убираем hover-эффекты */
+}
+
+/* Увеличенные тап-зоны для мобильных */
+.mobile-device .map__pin {
+  min-width: 50px;
+  min-height: 50px;
+}
+
+.mobile-device .map__pin--main {
+  min-width: 65px;
+  min-height: 65px;
+}
+
+/* Стили для состояния касания */
+.map__pin--touched {
+  transform: scale(1.1);
+  transition: transform 0.1s ease;
+  z-index: 1000;
+}
+
+.map__pin--dragging {
+  transform: scale(1.15);
+  z-index: 1001;
+  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.3));
+}
+
+/* Адаптация карточек для мобильных */
+.mobile-device .popup {
+  max-width: 90vw;
+  max-height: 80vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch; /* Плавный скролл на iOS */
+}
+
+.mobile-device .popup__close {
+  width: 44px;
+  height: 44px;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Адаптация формы фильтров для мобильных */
+.mobile-device .map__filters {
+  padding: 10px;
+}
+
+.mobile-device .map__filters select {
+  min-height: 44px;
+  font-size: 16px; /* Предотвращает зум в iOS */
+}
+
+.mobile-device .map__filters .map__filter {
+  margin-bottom: 10px;
+}
+
+/* Улучшение отображения features на мобильных */
+.mobile-device .popup__features {
+  flex-wrap: wrap;
+}
+
+.mobile-device .feature {
+  min-width: 50px;
+  min-height: 50px;
+  margin: 5px;
+}
+
+/* Адаптация фотографий */
+.mobile-device .popup__photos {
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+}
+
+.mobile-device .popup__photo {
+  height: 100px;
+  object-fit: cover;
+}
+
+/* Медиа-запросы для разных размеров экранов */
+@media (max-width: 768px) {
+  .map {
+    height: 60vh;
+  }
+
+  .map__pins {
+    transform-origin: center;
+  }
+
+  .ad-form {
+    padding: 15px;
+  }
+
+  .ad-form__element {
+    margin-bottom: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .map {
+    height: 50vh;
+  }
+
+  .popup {
+    width: 95vw !important;
+    left: 2.5vw !important;
+  }
+
+  .map__filters {
+    flex-direction: column;
+  }
+
+  .map__filters select {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+/* Предотвращение выделения текста при тапе */
+.touch-device {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.touch-device input,
+.touch-device select,
+.touch-device textarea {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+/* Улучшение скролла на iOS */
+.popup {
+  -webkit-overflow-scrolling: touch;
+}

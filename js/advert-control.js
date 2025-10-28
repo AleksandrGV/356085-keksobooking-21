@@ -225,9 +225,32 @@
     }
   };
 
-  // Функция закрытия карточки по ESC или клику
+
+  // НОВАЯ ФУНКЦИЯ: Адаптация для touch устройств
+  const setupTouchSupport = () => {
+    if (window.mobileSupport && window.mobileSupport.isTouchDevice()) {
+      // console.log('Настраиваем touch поддержку для карточек');
+
+      // Добавляем обработчик для закрытия карточки по тапу вне её области
+      document.addEventListener(`touchstart`, (evt) => {
+        const popup = document.querySelector(`.popup`);
+        const closeBtn = document.querySelector(`.popup__close`);
+
+        if (popup && !popup.contains(evt.target) && evt.target !== closeBtn) {
+          closeCard();
+        }
+      }, {passive: true});
+    }
+  };
+
+  // Обновляем функцию закрытия карточки для мобильных
   const onPopupClose = (evt) => {
-    if (evt.key === window.constants.NumberOnKeyboard.ESCAPE || evt.button === window.constants.MOUSE_BUTTON_NUMBER) {
+    // Поддержка как клика, так и тапа
+    const isClick = evt.button === window.constants.MOUSE_BUTTON_NUMBER;
+    const isTouch = evt.type === `touchstart` || evt.touches;
+    const isEscape = evt.key === window.constants.NumberOnKeyboard.ESCAPE;
+
+    if (isEscape || isClick || isTouch) {
       evt.preventDefault();
       closeCard();
     }
@@ -261,9 +284,13 @@
     }
   });
 
+  // Инициализация touch поддержки
+  setupTouchSupport();
+
   window.advertControl = {
     onOpenCard,
-    closeCard
+    closeCard,
+    setupTouchSupport
   };
 })();
 
