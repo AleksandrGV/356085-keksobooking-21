@@ -144,3 +144,67 @@
 .popup {
   -webkit-overflow-scrolling: touch;
 }
+
+/* Стили для изображений на мобильных устройствах */
+
+.mobile-device .map__pin img {
+  max-width: 40px !important;
+  max-height: 40px !important;
+  object-fit: cover !important;
+  border-radius: 50% !important;
+  border: 2px solid white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.mobile-device .popup__avatar {
+  width: 60px !important;
+  height: 60px !important;
+  object-fit: cover !important;
+  border-radius: 50% !important;
+  border: 3px solid #ff5635;
+}
+
+.mobile-device .popup__photo {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+/* Улучшение загрузки изображений */
+.mobile-device img {
+  transition: opacity 0.3s ease;
+}
+
+.mobile-device img:not([src]) {
+  opacity: 0;
+}
+
+.mobile-device img[src]:not(.loaded) {
+  opacity: 0.5;
+}
+
+.mobile-device img.loaded {
+  opacity: 1;
+}
+
+/* Индикатор загрузки для изображений */
+.mobile-device .image-loading {
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  border-radius: 4px;
+}
+
+.mobile-device .image-loading::after {
+  content: "🔄";
+  font-size: 20px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
